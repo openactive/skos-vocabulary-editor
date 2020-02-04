@@ -34,7 +34,7 @@
   <% end %>
 
   <% if @loose_concepts.try(:any?) %>
-    <%= sidebar_header t('txt.views.navigation.loose_concepts') %>
+      <%= sidebar_header t('txt.views.navigation.loose_concepts') %>
     <div class="box">
       <%= treeview @loose_concepts %>
       <%= paginate @loose_concepts %>

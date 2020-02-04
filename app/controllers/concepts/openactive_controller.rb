@@ -17,7 +17,6 @@
 #Derived from hierarchy_controller.rb
 class Concepts::OpenactiveController < ConceptsController
 
-
   def index
     authorize! :read, Iqvoc::Concept.base_class
 
@@ -82,8 +81,17 @@ class Concepts::OpenactiveController < ConceptsController
             concept: concepts
         }
         render json: raw_hash
-        f = File.open("export/unvalidated_activity_list.jsonld", "w")
+        outfile = "export/unvalidated_activity_list.jsonld"
+        f = File.open(outfile, "w")
         f.puts JSON.pretty_generate(raw_hash)
+          g = Git.init('.')
+          g.add(outfile)
+        begin
+          g.commit("Prevalidation JSON-LD output")
+        rescue Git::GitExecuteError
+          puts "No changes staged for commit."
+        end
+        g.push
       end
     end
   end
