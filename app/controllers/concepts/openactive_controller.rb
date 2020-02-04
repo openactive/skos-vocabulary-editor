@@ -82,7 +82,7 @@ class Concepts::OpenactiveController < ConceptsController
             concept: concepts
         }
         render json: raw_hash
-        f = File.open("export/updated_activity_list.jsonld", "w")
+        f = File.open("export/unvalidated_activity_list.jsonld", "w")
         f.puts JSON.pretty_generate(raw_hash)
       end
     end
