@@ -81,17 +81,18 @@ class Concepts::OpenactiveController < ConceptsController
             concept: concepts
         }
         render json: raw_hash
-        outfile = "export/unvalidated_activity_list.jsonld"
+        outfile = "activity-list/unvalidated_activity_list.jsonld"
         f = File.open(outfile, "w")
         f.puts JSON.pretty_generate(raw_hash)
-          g = Git.init('.')
-          g.add(outfile)
+          g = Git.open('./activity-list',
+        { :repository => './activity-list/.git', :index => '/tmp/index'} )
+          g.add(:all=>true)
         begin
           g.commit("Prevalidation JSON-LD output")
         rescue Git::GitExecuteError
           puts "No changes staged for commit."
         end
-        g.push
+        g.push('origin', 'master', {force: true})
       end
     end
   end
