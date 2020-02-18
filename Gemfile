@@ -49,7 +49,7 @@ gem 'daemons'
 # comment out those you do don't need or use a different Gemfile
 # gem  'mysql2', '~> 0.4.0'
 # gem 'sqlite3'
-gem 'pg', group: :production
+gem 'pg'
 gem 'rails_12factor'
 
 gem 'git'
