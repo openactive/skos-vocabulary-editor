@@ -1,6 +1,6 @@
 [submodule "doc"]
 	path = doc
 	url = https://github.com/innoq/iqvoc.wiki.git
-[submodule "activity-list"]
-	path = activity-list
+[submodule "app/activity-list"]
+	path = app/activity-list
 	url = https://github.com/openactive/activity-list.git
