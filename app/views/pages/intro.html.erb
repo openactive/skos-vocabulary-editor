@@ -1,0 +1,16 @@
+<%= page_header :title => "The OpenActive Activity List" %>
+The OpenActive Activity List is a standardised list of physical activities widely practiced in the UK. Its intent is to improve the accuracy and findability of physical activities by provinding standardised labels and identifiers for all the activities it contains. It is collaboratively maintained by the community of the UK's activity providers, and aims as far as possible to be reliable, comprehensive, and complete.
+<h2>Contributing to the Activity List</h2>
+If you would like to propose activities to be added to the list - or if you believe you have spotted an error in or necessary improvement to the list - please use the links below as appropriate. Your proposal will then be reviewed by the Activity List Committee and incorporated where possible.<br><br>
+<ul style="list-style: none;">
+<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSf3qkgDNwUDG8jvsO1ld2J6q18wwIR3SlTmSZm8h9KxqCm-Ng/viewform">Suggest a new activity</a></li>
+<li><a href="https://docs.google.com/forms/d/e/1FAIpQLScuRUh4qjZu22u5UosdYbqX09HTYSbB61ykrSqdUlu9GieKmQ/viewform">Amend an existing activity</a></li>
+<li><a href="https://docs.google.com/forms/d/e/1FAIpQLScBajDxNFxX2NSR61jhiK3-viPpgwPTyX513Zf--d3GLOp5QQ/viewform">General feedback</a></li>
+</ul>
+<h2>Activity List Governance</h2>
+<p>The OpenActive Activity List Committee, a collection of individuals and organisations who maintain this list, is currently being formalised and is open for applications. If you are interested in joining, please e-mail <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f29a979e9e9db29d82979c9391869b8497dc9b9d">[email&#160;protected]</a></b>. This page is a placeholder until the formalised committee is established, and we welcome any contributions you have via the links above for their consideration.</p>
+<h2>Developer Access</h2>
+<p>A <a href="https://openactive.io/activity-list/activity-list.jsonld">JSON-LD definition</a> of the OpenActive Activity List controlled vocabulary is available for live integration into applications.</p>
+<p>This controlled vocabulary SHOULD be retrieved live within an application using an HTTP GET, to ensure that the most up-to-date version is displayed to the user. To access this controlled vocabulary the application MUST GET the URL <code class="highlighter-rouge">"https://openactive.io/activity-list/activity-list.jsonld"</code> (note there is no <code>www</code> in the URL) which does not require a specific <code class="highlighter-rouge">Accept</code> header, and is cached via CDN. The controlled vocabulary is also available via a GET of the URL <code class="highlighter-rouge">"https://openactive.io/activity-list"</code> using an <code class="highlighter-rouge">Accept</code> header of <code class="highlighter-rouge">application/ld+json</code>, for completeness, however this shorter URL MUST NOT be used in production.</p>
+<p>For more information, see the <a href="https://developer.openactive.io/publishing-data/activity-list-references">developer site</a>.<br><br><br><br><br><br>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>

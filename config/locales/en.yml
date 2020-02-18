@@ -86,7 +86,6 @@ en:
        xml: "RDF/XML"
      confirm_sign_out: "Are you sure you want to sign out?"
      menu: "Menu"
-
    views:
      show: Show
      layouts:
@@ -199,7 +198,7 @@ en:
        alphabetical: "Alphabetical"
        draft: "Draft"
        expired: "Expired"
-       search: "Search"
+       search: "Advanced Search"
        about: "About iQvoc"
        version: "Version"
        users: "Users"
@@ -209,6 +208,7 @@ en:
        loose_concepts: "Parentless Concepts"
        quick_search: "Quick search"
        help: "Help"
+       basic_find: "Basic Find"
      frontpage:
        type_to_browse: "Start typing to browse concepts"
      search_results:
@@ -338,6 +338,7 @@ en:
        error: "Error occurred while creating Export job."
        missing_file: "An error occurred. Export could not be found."
        output: "log"
+
 
    partials:
      note:

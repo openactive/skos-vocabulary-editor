@@ -85,7 +85,11 @@ Rails.application.routes.draw do
     get 'version' => 'pages#version', as: 'version'
     get 'components' => 'pages#components', as: 'components'
 
-    get '/' => 'frontpage#index', as: 'localized_root'
+    get 'basic_find' => 'frontpage#index', as: 'basic_find'
+
+    get '/' => 'pages#intro', as: 'localized_root'
+
+
   end
 
   patch ':origin/add_match' => 'reverse_matches#add_match', as: 'add_match'
@@ -101,5 +105,5 @@ Rails.application.routes.draw do
 
   get ':id' => 'rdf#show', as: 'rdf'
 
-  root to: 'frontpage#index', format: nil
+  root to: 'pages#intro', format: nil
 end

@@ -62,7 +62,13 @@ module Iqvoc
           text: proc { t('txt.views.navigation.collections') },
           href: proc { collections_path },
           controller: 'collections'
-        }, {
+        },
+        {
+          text: proc { t('txt.views.navigation.basic_find') },
+          href: proc { basic_find_url },
+          controller: 'frontpage'
+        },
+         {
           text: proc { t('txt.views.navigation.search') },
           href: proc { search_path },
           controller: 'search_results'
