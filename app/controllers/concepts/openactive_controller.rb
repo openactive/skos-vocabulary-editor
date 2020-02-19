@@ -81,11 +81,11 @@ class Concepts::OpenactiveController < ConceptsController
             concept: concepts
         }
         render json: raw_hash
-        outfile = "activity-list/unvalidated_activity_list.jsonld"
+        outfile = "app/activity-list/unvalidated_activity_list.jsonld"
         f = File.open(outfile, "w")
         f.puts JSON.pretty_generate(raw_hash)
-          g = Git.open('./activity-list',
-        { :repository => './activity-list/.git', :index => '/tmp/index'} )
+          g = Git.open('./app/activity-list',
+        { :repository => './app/activity-list/.git', :index => '/tmp/index'} )
           g.add(:all=>true)
         begin
           g.commit("Prevalidation JSON-LD output")
