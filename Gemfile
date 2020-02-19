@@ -44,6 +44,7 @@ gem 'delayed_job_active_record', '~> 4.1.1'
 gem 'carrierwave'
 gem 'autoprefixer-rails', '~> 6.5.1.1'
 gem 'daemons'
+gem "octokit", "~> 4.0"
 
 # database adapters
 # comment out those you do don't need or use a different Gemfile
@@ -51,6 +52,7 @@ gem 'daemons'
 # gem 'sqlite3'
 gem 'pg'
 gem 'rails_12factor'
+gem 'figaro'
 
 gem 'git'
 

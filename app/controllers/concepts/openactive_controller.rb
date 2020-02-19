@@ -81,18 +81,17 @@ class Concepts::OpenactiveController < ConceptsController
             concept: concepts
         }
         render json: raw_hash
-        outfile = "app/activity-list/unvalidated_activity_list.jsonld"
-        f = File.open(outfile, "w")
-        f.puts JSON.pretty_generate(raw_hash)
-          g = Git.open('./app/activity-list',
-        { :repository => './../.git/modules/app/activity-list', :index => '/tmp/index'} )
-          g.add(:all=>true)
-        begin
-          g.commit("Prevalidation JSON-LD output")
-        rescue Git::GitExecuteError
-          puts "No changes staged for commit."
-        end
-        g.push('origin', 'master', {force: true})
+        pretty_json = JSON.pretty_generate(raw_hash)
+        client = Octokit::Client.new(:login => ENV["GIT_UID"], :password => ENV["GIT_PSW"])
+        orig_file = client.contents("openactive/activity-list", :path => 'unvalidated_activity_list.jsonld')
+        sha = orig_file[:sha]
+        client.create_contents("openactive/activity-list",
+                 "unvalidated_activity_list.jsonld",
+                 "Adding unvalidated content",
+                 pretty_json,
+                 :branch => "master",
+                 :sha => sha
+                 )
       end
     end
   end

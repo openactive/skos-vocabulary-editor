@@ -26,3 +26,6 @@ public/export
 public/uploads
 coverage/*
 activity-list/validated_activity_list.jsonld
+
+# Ignore application configuration
+/config/application.yml
