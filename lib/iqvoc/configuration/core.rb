@@ -139,7 +139,7 @@ module Iqvoc
 
         # initialize
         self.config.register_settings({
-          'title' => 'OA Activity List',
+          'title' => 'OpenActive Activity List',
           'languages.pref_labeling' => ['en', 'de'],
           'languages.further_labelings.Labeling::SKOS::AltLabel' => ['en', 'de'],
           'languages.notes' => ['en', 'de'],
