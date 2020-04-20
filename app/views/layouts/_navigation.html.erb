@@ -5,7 +5,10 @@
         <span class="sr-only">Toggle navigation</span>
         <i class="fa fa-bars"></i> <%= t('txt.common.menu') %>
       </button>
-      <%= link_to Iqvoc.config["title"], localized_root_path, class: 'navbar-brand' %>
+      <a class="navbar-brand" href="<%= localized_root_path %>">
+        <img src="https://www.openactive.io/assets/openactive-icon-60x28.png" style="width: 30px; height: 14px; display: inline-block; margin-bottom: 2px; margin-right: 5px;">
+        OpenActive Activity List
+      </a>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
