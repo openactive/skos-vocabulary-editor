@@ -11,7 +11,7 @@
 
   <%= sidebar_header 'Contribute' %>
   <% if defined?(concept) %>
-    <%= sidebar_item :icon => 'link', :text => 'Suggest amendment', :path => 'https://docs.google.com/forms/d/e/1FAIpQLScuRUh4qjZu22u5UosdYbqX09HTYSbB61ykrSqdUlu9GieKmQ/viewform?usp=pp_url&entry.2049916836=' + concept.pref_label.to_s %>
+    <%= sidebar_item :icon => 'link', :text => 'Suggest amendment', :path => 'https://docs.google.com/forms/d/e/1FAIpQLScuRUh4qjZu22u5UosdYbqX09HTYSbB61ykrSqdUlu9GieKmQ/viewform?usp=pp_url&entry.2049916836=' + ERB::Util.url_encode(concept.pref_label.to_s) %>
     <%= sidebar_item :icon => 'link', :text => 'Suggest new activity', :path => 'https://docs.google.com/forms/d/e/1FAIpQLSf3qkgDNwUDG8jvsO1ld2J6q18wwIR3SlTmSZm8h9KxqCm-Ng/viewform' %>
     <%= sidebar_item :icon => 'link', :text => 'General feedback', :path => 'https://docs.google.com/forms/d/e/1FAIpQLScBajDxNFxX2NSR61jhiK3-viPpgwPTyX513Zf--d3GLOp5QQ/viewform' %>
   <% end %>
@@ -19,7 +19,7 @@
   <%= sidebar_header 'Links' %>
   <% if defined?(concept) %>
     <!-- <%= sidebar_item :icon => 'link', :text => t('txt.models.concept.uri'), :path => rdf_url(concept.origin, :format => nil, :published => published_param, :lang => nil) %> -->
-    <%= sidebar_item :icon => 'link', :text => 'Concept @id', :path => 'https://openactive.io/activity-list#' + concept.origin[1..-1] %>
+    <%= sidebar_item :icon => 'link', :text => 'Concept @id', :path => 'https://openactive.io/activity-list#' + CGI.escapeHTML(concept.origin[1..-1]) %>
   <% end %>
 
   <% (Iqvoc.first_level_classes - [Collection::SKOS::Unordered]).each do |klass| %>
