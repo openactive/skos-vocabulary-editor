@@ -49,6 +49,10 @@ class Concepts::OpenactiveController < ConceptsController
           c.narrower_relations.each do |rel|
             narrower << "https://openactive.io/activity-list##{rel.target.origin[1..-1]}"
           end
+          related = []
+          c.referenced_relations.each do |rel|
+            related << "https://openactive.io/activity-list##{rel.target.origin[1..-1]}"
+          end
           concept = {
               id: url,
               identifier: c.origin[1..-1],
@@ -57,6 +61,7 @@ class Concepts::OpenactiveController < ConceptsController
           }
           concept[:broader] = broader if broader.any?
           concept[:narrower] = narrower if narrower.any?
+          concept[:related] = related if related.any?
           c.notes_for_class(Note::SKOS::Definition).each do |n|
             concept[:definition] = n.value
           end
