@@ -6,3 +6,17 @@
     end %>
   </div>
 </div>
+<div class="relation panel">
+  <h2>JSON-LD Activity List Reference Snippet</h2>
+  <div class="relation-body">
+    <p>This code snippet can be used by a software developer to hardcode "<%= CGI.escapeHTML(concept.pref_label.to_s) %>" within an open data feed:</p>
+    <pre>"activity": [
+  {
+    "@type": "Concept",
+    "@id": "https://openactive.io/activity-list#<%= CGI.escapeHTML(concept.origin[1..-1]) %>",
+    "prefLabel": "<%= CGI.escapeHTML(concept.pref_label.to_s) %>",
+    "inScheme": "https://openactive.io/activity-list"
+  }
+],</pre>
+  </div>
+</div>
