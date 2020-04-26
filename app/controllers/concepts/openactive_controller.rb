@@ -49,8 +49,10 @@ class Concepts::OpenactiveController < ConceptsController
           c.narrower_relations.each do |rel|
             narrower << "https://openactive.io/activity-list##{rel.target.origin[1..-1]}"
           end
+          klass = Iqvoc::Concept.further_relation_classes.first # XXX: arbitrary; bad heuristic?
+          only_published = params[:published] != "0"
           related = []
-          c.related_concepts.each do |related_concept|
+          c.related_concepts_for_relation_class(klass, only_published).each do |related_concept|
             related << "https://openactive.io/activity-list##{related_concept.origin[1..-1]}"
           end
           concept = {
