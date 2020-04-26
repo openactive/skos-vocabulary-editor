@@ -91,7 +91,7 @@ class Concepts::OpenactiveController < ConceptsController
         orig_file = client.contents("openactive/activity-list", :path => 'unvalidated_activity_list-test.jsonld')
         sha = orig_file[:sha]
         client.create_contents("openactive/activity-list",
-                 "unvalidated_activity_list.jsonld",
+                 "unvalidated_activity_list-test.jsonld",
                  "Adding unvalidated content",
                  pretty_json,
                  :branch => "master",
