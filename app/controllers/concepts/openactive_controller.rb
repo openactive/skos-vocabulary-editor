@@ -50,8 +50,8 @@ class Concepts::OpenactiveController < ConceptsController
             narrower << "https://openactive.io/activity-list##{rel.target.origin[1..-1]}"
           end
           related = []
-          c.referenced_relations.each do |rel|
-            related << "https://openactive.io/activity-list##{rel.target.origin[1..-1]}"
+          c.related_concepts.each do |related_concept|
+            related << "https://openactive.io/activity-list##{related_concept.origin[1..-1]}"
           end
           concept = {
               id: url,
