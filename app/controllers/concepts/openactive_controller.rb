@@ -90,10 +90,10 @@ class Concepts::OpenactiveController < ConceptsController
         render json: raw_hash
         pretty_json = JSON.pretty_generate(raw_hash)
         client = Octokit::Client.new(:login => ENV["GIT_UID"], :password => ENV["GIT_PSW"])
-        orig_file = client.contents("openactive/activity-list", :path => 'unvalidated_activity_list-test.jsonld')
+        orig_file = client.contents("openactive/activity-list", :path => 'unvalidated_activity_list.jsonld')
         sha = orig_file[:sha]
         client.create_contents("openactive/activity-list",
-                 "unvalidated_activity_list-test.jsonld",
+                 "unvalidated_activity_list.jsonld",
                  "Adding unvalidated content",
                  pretty_json,
                  :branch => "master",
