@@ -59,7 +59,7 @@ class Concepts::OpenactiveController < ConceptsController
               id: url,
               identifier: c.origin[1..-1],
               type: "Concept",
-              prefLabel: CGI.escapeHTML(c.pref_label.to_s)
+              prefLabel: c.pref_label.to_s
           }
           concept[:broader] = broader if broader.any?
           concept[:narrower] = narrower if narrower.any?
