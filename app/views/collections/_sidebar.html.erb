@@ -12,7 +12,7 @@
     <%= sidebar_header 'Links' %>
   <% end %>
   <% if defined?(collection) %>
-    <%= sidebar_item :icon => 'link', :text => t('txt.models.collection.uri'), "https://openactive.io/activity-list/collections/#{collection.origin[1..-1]}" %>
+    <%= sidebar_item :icon => 'link', :text => t('txt.models.collection.uri'), :path => "https://openactive.io/activity-list/collections/#{collection.origin[1..-1]}" %>
   <% end %>
   <%= sidebar_item :icon => :edit, :text => t("txt.views.collections.new"), :path => new_collection_path,
     :perms => [:create, Iqvoc::Collection.base_class] %>
