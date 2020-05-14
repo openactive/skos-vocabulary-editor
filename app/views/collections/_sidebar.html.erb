@@ -8,11 +8,12 @@
     <%= sidebar_item :icon => 'share', :text => 'JSON-LD', :path => "https://openactive.io/activity-list/collections/#{collection.origin[1..-1]}.jsonld", :id => 'link_jsonld' %>
   <% end %>
 
-  <% if defined?(collection) || can?(:create, Iqvoc::Collection.base_class) %>
+  <% if can?(:create, Iqvoc::Collection.base_class) %>
     <%= sidebar_header 'Links' %>
   <% end %>
+  
   <% if defined?(collection) %>
-    <%= sidebar_item :icon => 'link', :text => t('txt.models.collection.uri'), :path => "https://openactive.io/activity-list/collections/#{collection.origin[1..-1]}" %>
+    <!-- <%= sidebar_item :icon => 'link', :text => t('txt.models.collection.uri'), :path => rdf_url(collection.origin, :format => nil, :lang => nil) %> -->
   <% end %>
   <%= sidebar_item :icon => :edit, :text => t("txt.views.collections.new"), :path => new_collection_path,
     :perms => [:create, Iqvoc::Collection.base_class] %>
