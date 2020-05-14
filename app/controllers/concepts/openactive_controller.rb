@@ -29,6 +29,8 @@ class Concepts::OpenactiveController < ConceptsController
 
     @concepts = scope
 
+    @collections = Iqvoc::Collection.base_class.published.includes(:members, :notes, :alt_labels, :pref_labels)
+
     # When in single query mode, AR handles ALL includes to be loaded by that
     # one query. We don't want that! So let's do it manually :-)
     #    ActiveRecord::Associations::Preloader.new.preload(@concepts,
@@ -38,6 +40,9 @@ class Concepts::OpenactiveController < ConceptsController
 
     respond_to do |format|
       format.jsonld do
+
+        # Create main unvalidated_activity_list.jsonld file (which is then validated by CI within the activity-list repo)
+
         concepts = @concepts.select { |c| can? :read, c }.map do |c|
           url = "https://openactive.io/activity-list##{c.origin[1..-1]}"
     #      definition = c.notes_for_class(Note::SKOS::Definition).empty? ? "" : c.notes_for_class(Note::SKOS::Definition).first.value
@@ -89,6 +94,7 @@ class Concepts::OpenactiveController < ConceptsController
         }
         render json: raw_hash
         pretty_json = JSON.pretty_generate(raw_hash)
+
         client = Octokit::Client.new(:login => ENV["GIT_UID"], :password => ENV["GIT_PSW"])
         orig_file = client.contents("openactive/activity-list", :path => 'unvalidated_activity_list.jsonld')
         sha = orig_file[:sha]
@@ -99,6 +105,45 @@ class Concepts::OpenactiveController < ConceptsController
                  :branch => "master",
                  :sha => sha
                  )
+
+        # Create collections jsonld files (which are not validated)
+
+        collections = @collections.select { |c| can? :read, c }.each do |c|
+          collectionname = c.pref_label.to_s.downcase
+          filename = "collections/#{collectionname}.jsonld"
+          url = "https://openactive.io/activity-list/#{filename}"
+          members = []
+          c.concepts.each do |rel|
+            members << "https://openactive.io/activity-list##{c.origin[1..-1]}"
+          end
+          collection = {
+              "@context": "https://openactive.io/",
+              type: "ConceptCollection",
+              id: url,
+              prefLabel: c.pref_label.to_s,
+              inScheme: "https://openactive.io/activity-list",
+              license: "https://creativecommons.org/licenses/by/4.0/",
+              member: members
+          }
+          c.notes_for_class(Note::SKOS::Definition).each do |n|
+            collection[:definition] = n.value
+          end
+          c.alt_labels.each do |l|
+            collection[:altLabel] ||= []
+            collection[:altLabel] << l.value
+          end
+          collection_pretty_json = JSON.pretty_generate(collection)
+
+          orig_file = client.contents("openactive/activity-list", :path => filename)
+          sha = orig_file[:sha]
+          client.create_contents("openactive/activity-list",
+                   filename,
+                   "Updating collection #{collectionname}",
+                   collection_pretty_json,
+                   :branch => "master",
+                   :sha => sha
+                   )
+        end
       end
     end
   end
