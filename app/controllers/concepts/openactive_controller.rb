@@ -109,7 +109,7 @@ class Concepts::OpenactiveController < ConceptsController
         # Create collections jsonld files (which are not validated)
 
         collections = @collections.select { |c| can? :read, c }.each do |c|
-          collectionname = c.pref_label.to_s.downcase.tr(" ", "-")
+          collectionname = c.origin[1..-1]
           filename = "collections/#{collectionname}.jsonld"
           url = "https://openactive.io/activity-list/#{filename}"
           members = []
