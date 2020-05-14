@@ -114,7 +114,7 @@ class Concepts::OpenactiveController < ConceptsController
           url = "https://openactive.io/activity-list/#{filename}"
           members = []
           c.concepts.each do |rel|
-            members << "https://openactive.io/activity-list##{c.origin[1..-1]}"
+            members << "https://openactive.io/activity-list##{rel.origin[1..-1]}"
           end
           collection = {
               "@context": "https://openactive.io/",
@@ -122,16 +122,16 @@ class Concepts::OpenactiveController < ConceptsController
               id: url,
               prefLabel: c.pref_label.to_s,
               inScheme: "https://openactive.io/activity-list",
-              license: "https://creativecommons.org/licenses/by/4.0/",
-              member: members
+              license: "https://creativecommons.org/licenses/by/4.0/"
           }
-          c.notes_for_class(Note::SKOS::Definition).each do |n|
-            collection[:definition] = n.value
-          end
           c.alt_labels.each do |l|
             collection[:altLabel] ||= []
             collection[:altLabel] << l.value
           end
+          c.notes_for_class(Note::SKOS::Definition).each do |n|
+            collection[:definition] = n.value
+          end
+          concept[:member] = members if members.any?
           collection_pretty_json = JSON.pretty_generate(collection)
 
           orig_file = client.contents("openactive/activity-list", :path => filename)
