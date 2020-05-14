@@ -131,7 +131,7 @@ class Concepts::OpenactiveController < ConceptsController
           c.notes_for_class(Note::SKOS::Definition).each do |n|
             collection[:definition] = n.value
           end
-          concept[:member] = members if members.any?
+          collection[:member] = members if members.any?
           collection_pretty_json = JSON.pretty_generate(collection)
 
           orig_file = client.contents("openactive/activity-list", :path => filename)
