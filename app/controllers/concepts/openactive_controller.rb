@@ -118,8 +118,8 @@ class Concepts::OpenactiveController < ConceptsController
           end
           collection = {
               "@context": "https://openactive.io/",
-              type: "ConceptCollection",
-              id: url,
+              "@type": "ConceptCollection",
+              "@id": url,
               prefLabel: c.pref_label.to_s,
               inScheme: "https://openactive.io/activity-list",
               license: "https://creativecommons.org/licenses/by/4.0/"
