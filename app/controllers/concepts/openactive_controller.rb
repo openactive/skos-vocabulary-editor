@@ -95,17 +95,6 @@ class Concepts::OpenactiveController < ConceptsController
         render json: raw_hash
         pretty_json = JSON.pretty_generate(raw_hash)
 
-        client = Octokit::Client.new(:login => ENV["GIT_UID"], :password => ENV["GIT_PSW"])
-        orig_file = client.contents("openactive/activity-list", :path => 'unvalidated_activity_list.jsonld')
-        sha = orig_file[:sha]
-        client.create_contents("openactive/activity-list",
-                 "unvalidated_activity_list.jsonld",
-                 "Adding unvalidated content",
-                 pretty_json,
-                 :branch => "master",
-                 :sha => sha
-                 )
-
         # Create collections jsonld files (which are not validated)
 
         collections = @collections.select { |c| can? :read, c }.each do |c|
@@ -134,15 +123,6 @@ class Concepts::OpenactiveController < ConceptsController
           collection[:member] = members if members.any?
           collection_pretty_json = JSON.pretty_generate(collection)
 
-          orig_file = client.contents("openactive/activity-list", :path => filename)
-          sha = orig_file[:sha]
-          client.create_contents("openactive/activity-list",
-                   filename,
-                   "Updating collection #{collectionname}",
-                   collection_pretty_json,
-                   :branch => "master",
-                   :sha => sha
-                   )
         end
       end
     end
