@@ -44,21 +44,21 @@ class Concepts::OpenactiveController < ConceptsController
         # Create main unvalidated_activity_list.jsonld file (which is then validated by CI within the activity-list repo)
 
         concepts = @concepts.select { |c| can? :read, c }.map do |c|
-          url = "https://openactive.io/activity-list##{c.origin[1..-1]}"
+          url = "https://disability.openactive.io/participant-condition-supported##{c.origin[1..-1]}"
     #      definition = c.notes_for_class(Note::SKOS::Definition).empty? ? "" : c.notes_for_class(Note::SKOS::Definition).first.value
           broader = []
           c.broader_relations.each do |rel|
-            broader << "https://openactive.io/activity-list##{rel.target.origin[1..-1]}"
+            broader << "https://disability.openactive.io/participant-condition-supported##{rel.target.origin[1..-1]}"
           end
           narrower = []
           c.narrower_relations.each do |rel|
-            narrower << "https://openactive.io/activity-list##{rel.target.origin[1..-1]}"
+            narrower << "https://disability.openactive.io/participant-condition-supported##{rel.target.origin[1..-1]}"
           end
           klass = Iqvoc::Concept.further_relation_classes.first # XXX: arbitrary; bad heuristic?
           only_published = params[:published] != "0"
           related = []
           c.related_concepts_for_relation_class(klass, only_published).each do |related_concept|
-            related << "https://openactive.io/activity-list##{related_concept.origin[1..-1]}"
+            related << "https://disability.openactive.io/participant-condition-supported##{related_concept.origin[1..-1]}"
           end
           concept = {
               id: url,
@@ -76,7 +76,7 @@ class Concepts::OpenactiveController < ConceptsController
             concept[:notation] = n.value
           end
 
-          concept[:topConceptOf] = "https://openactive.io/activity-list" if c.top_term?
+          concept[:topConceptOf] = "https://disability.openactive.io/participant-condition-supported" if c.top_term?
           c.alt_labels.each do |l|
             concept[:altLabel] ||= []
             concept[:altLabel] << l.value
@@ -85,9 +85,9 @@ class Concepts::OpenactiveController < ConceptsController
         end
         raw_hash = {
             "@context": "https://openactive.io/",
-            id: "https://openactive.io/activity-list",
-            title: "OpenActive Activity List",
-            description: "This document describes the OpenActive standard activity list.",
+            id: "https://disability.openactive.io/participant-condition-supported",
+            title: "OpenActive Participant Condition Supported List",
+            description: "A SKOS vocabulary for medical states and conditions affecting accessibility for physical activities",
             type: "ConceptScheme",
             license: "https://creativecommons.org/licenses/by/4.0/",
             concept: concepts
@@ -100,17 +100,17 @@ class Concepts::OpenactiveController < ConceptsController
         collections = @collections.select { |c| can? :read, c }.each do |c|
           collectionname = c.origin[1..-1]
           filename = "collections/#{collectionname}.jsonld"
-          url = "https://openactive.io/activity-list/#{filename}"
+          url = "https://disability.openactive.io/participant-condition-supported#{filename}"
           members = []
           c.concepts.each do |rel|
-            members << "https://openactive.io/activity-list##{rel.origin[1..-1]}"
+            members << "https://disability.openactive.io/participant-condition-supported##{rel.origin[1..-1]}"
           end
           collection = {
               "@context": "https://openactive.io/",
               "@type": "ConceptCollection",
               "@id": url,
               prefLabel: c.pref_label.to_s,
-              inScheme: "https://openactive.io/activity-list",
+              inScheme: "https://disability.openactive.io/participant-condition-supported",
               license: "https://creativecommons.org/licenses/by/4.0/"
           }
           c.alt_labels.each do |l|
