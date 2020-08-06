@@ -84,7 +84,7 @@ class Concepts::OpenactiveController < ConceptsController
           concept
         end
         raw_hash = {
-            "@context": "https://openactive.io/",
+            "@context": "https://disability.openactive.io/",
             id: "https://disability.openactive.io/participant-condition-supported",
             title: "OpenActive Participant Condition Supported List",
             description: "A SKOS vocabulary for medical states and conditions affecting accessibility for physical activities",
@@ -106,7 +106,7 @@ class Concepts::OpenactiveController < ConceptsController
             members << "https://disability.openactive.io/participant-condition-supported##{rel.origin[1..-1]}"
           end
           collection = {
-              "@context": "https://openactive.io/",
+              "@context": "https://disability.openactive.io/",
               "@type": "ConceptCollection",
               "@id": url,
               prefLabel: c.pref_label.to_s,
