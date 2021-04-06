@@ -51,7 +51,6 @@ gem "octokit", "~> 4.0"
 # gem  'mysql2', '~> 0.4.0'
 # gem 'sqlite3'
 gem 'pg'
-gem 'rails_12factor'
 gem 'figaro'
 
 gem 'git'
