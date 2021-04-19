@@ -56,7 +56,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'pg', '~> 0.21.0'
 
 gem 'rack-mini-profiler'
-
+gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 group :development do
   gem 'better_errors'
   gem 'web-console'
