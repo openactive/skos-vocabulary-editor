@@ -464,7 +464,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.12)
   rack-mini-profiler
-  rails (~> 5.2.0)
+  rails (~> 5.2.5)
   rails_12factor
   rails_autolink
   rdf-vocab
