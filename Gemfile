@@ -49,9 +49,8 @@ gem "octokit", "~> 4.0"
 # database adapters
 # comment out those you do don't need or use a different Gemfile
 # gem  'mysql2', '~> 0.4.0'
-gem 'pg'
+gem 'pg', '~> 0.15'
 gem 'figaro'
-
 gem 'git'
 
 group :development do
