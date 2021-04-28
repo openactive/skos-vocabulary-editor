@@ -49,7 +49,6 @@ gem "octokit", "~> 4.0"
 # database adapters
 # comment out those you do don't need or use a different Gemfile
 # gem  'mysql2', '~> 0.4.0'
-# gem 'sqlite3'
 gem 'pg'
 gem 'figaro'
 
@@ -82,6 +81,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'sqlite3', '~> 1.3.0'
   gem 'capybara', '~> 2.14.2'
   gem 'poltergeist', '~> 1.6.0'
   gem 'webmock', '~> 3.0.1'

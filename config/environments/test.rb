@@ -19,6 +19,7 @@ require 'iqvoc/environments/test'
 if Iqvoc.const_defined?(:Application)
   Iqvoc::Application.configure do
     # Settings specified here will take precedence over those in config/environment.rb
+    config.log_level = :info
     Iqvoc::Environments.setup_test(config)
   end
 end
