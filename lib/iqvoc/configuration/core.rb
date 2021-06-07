@@ -72,7 +72,13 @@ module Iqvoc
           text: proc { t('txt.views.navigation.search') },
           href: proc { search_path },
           controller: 'search_results'
-        }, {
+        },
+          {
+          text: proc { t('txt.views.navigation.changelog') },
+          href: proc { changelog_path },
+          controller: 'pages'
+          },
+        {
           text: proc { t('txt.views.navigation.help') },
           items: [{
             text: proc { t('txt.views.navigation.help') },
