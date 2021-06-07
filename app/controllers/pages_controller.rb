@@ -31,4 +31,7 @@ class PagesController < ApplicationController
 
   def intro
   end
+
+  def changelog
+  end
 end
