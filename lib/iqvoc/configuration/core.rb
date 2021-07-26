@@ -77,22 +77,23 @@ module Iqvoc
           text: proc { t('txt.views.navigation.changelog') },
           href: proc { changelog_path },
           controller: 'pages'
-          },
-        {
-          text: proc { t('txt.views.navigation.help') },
-          items: [{
-            text: proc { t('txt.views.navigation.help') },
-            href: proc { help_path },
-            controller: 'pages',
-            action: 'help',
-            :authorized? => proc { can? :read, :help }
-          }, {
-            text: proc { t('txt.views.navigation.about') },
-            href: 'http://iqvoc.net/'
-          }, {
-            text: proc { t('txt.views.navigation.version') },
-            href: proc { version_path }
-          }]
+          }
+     #      ,
+     #   {
+     #     text: proc { t('txt.views.navigation.help') },
+     #     items: [{
+     #       text: proc { t('txt.views.navigation.help') },
+     #       href: proc { help_path },
+     #       controller: 'pages',
+     #       action: 'help',
+     #       :authorized? => proc { can? :read, :help }
+     #     }, {
+     #       text: proc { t('txt.views.navigation.about') },
+     #       href: 'http://iqvoc.net/'
+     #     }, {
+     #       text: proc { t('txt.views.navigation.version') },
+     #       href: proc { version_path }
+     #     }]
         }]
 
         self.searchable_class_names = {
