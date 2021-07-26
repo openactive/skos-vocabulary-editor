@@ -78,11 +78,6 @@ module Iqvoc
           href: proc { changelog_path },
           controller: 'pages'
           },
-         {
-         text: proc { t('txt.views.navigation.instructions') },
-         href: proc { instructions_path },
-         controller: 'pages'
-         },
         {
           text: proc { t('txt.views.navigation.help') },
           items: [{
