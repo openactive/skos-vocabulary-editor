@@ -33,7 +33,7 @@ class PagesController < ApplicationController
   end
 
   def changelog
-    authorize! :read, :version
+#    authorize! :read, :version
   end
 
   def instructions
