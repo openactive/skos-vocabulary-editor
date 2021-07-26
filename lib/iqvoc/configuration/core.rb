@@ -46,7 +46,7 @@ module Iqvoc
           controller: 'dashboard',
           :authorized? => proc { can? :use, :dashboard }
         }, {
-            text: 'How to Edit',
+            text: 'Editing',
             href: proc { instructions_path },
             controller: 'pages',
             :authorized? => proc { can? :use, :dashboard }
