@@ -80,7 +80,7 @@ module Iqvoc
           },
          {
          text: proc { t('txt.views.navigation.instructions') },
-         href: proc ( instructions_path ),
+         href: proc { instructions_path },
          controller: 'pages'
          },
         {
