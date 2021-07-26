@@ -46,11 +46,11 @@ module Iqvoc
           controller: 'dashboard',
           :authorized? => proc { can? :use, :dashboard }
         }, {
-        #   text: 'Scheme',
-        #   href: proc { scheme_path },
-        #   controller: 'concepts/scheme',
-        #   :authorized? => proc { can? :read, Iqvoc::Concept.root_class.instance }
-        # }, {
+            text: 'How to Edit',
+            href: proc { instructions_path },
+            controller: 'pages',
+            :authorized? => proc { can? :use, :dashboard }
+         }, {
           text: proc { ::Concept::Base.model_name.human(count: 2) },
           href: proc { hierarchical_concepts_path },
           controller: 'concepts/hierarchical',
@@ -78,6 +78,11 @@ module Iqvoc
           href: proc { changelog_path },
           controller: 'pages'
           },
+         {
+         text: proc ( t('txt.views.navigation.instructions') },
+         href: proc ( instructions_path ),
+         controller: 'pages'
+         },
         {
           text: proc { t('txt.views.navigation.help') },
           items: [{

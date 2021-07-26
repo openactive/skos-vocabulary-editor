@@ -83,6 +83,7 @@ Rails.application.routes.draw do
 
     get 'help' => 'pages#help', as: 'help'
     get 'changelog' => 'pages#changelog', as: 'changelog'
+    get 'instructions' => 'pages#instructions', as: 'instructions'
     get 'version' => 'pages#version', as: 'version'
     get 'components' => 'pages#components', as: 'components'
 

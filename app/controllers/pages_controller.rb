@@ -35,4 +35,9 @@ class PagesController < ApplicationController
   def changelog
     authorize! :read, :version
   end
+
+  def instructions
+    authorize! :read, :version
+  end
+
 end
