@@ -94,7 +94,8 @@ module Iqvoc
      #       text: proc { t('txt.views.navigation.version') },
      #       href: proc { version_path }
      #     }]
-        }]
+     #    }
+         ]
 
         self.searchable_class_names = {
           'Labeling::SKOS::Base' => 'labels',
