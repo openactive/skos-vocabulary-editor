@@ -37,7 +37,7 @@ class PagesController < ApplicationController
   end
 
   def instructions
-    authorize! :read, :version
+#    authorize! :read, :version
   end
 
 end
