@@ -11,9 +11,51 @@
 <p>The role of Collections may change in future, but for the present their use should be avoided.<p>
 <h3>Adding a New Activity</h3>
 <p>To add a new activity, use the top horizontal navigation bar to navigate to 'Concepts'; then, in the right-hand navigation bar, click 'New Concept'. This will bring you to the New Concept page, where you can add your new activity.</p>
+<p>Although there are many fields that can be used to define your new activity, there are only a few that are required for it to appear in the activity list</p>
 <h4>Labels</h4>
+<p>This is the human-readable label that will be displayed to end-users. 'EN' refers to English-language labels; 'DE' to German-language labels. For current purposes, only the first must be supplied.</p>
 <h4>Relations</h4>
+<p>The important field here is 'Broader Term' - that is to say, the existing term in the current hierarchy that your new activity should sit under. For instance, if you were adding 'Rugby Union' to the Activity List, the 'Broader Term' would be the existing 'Rugby' activity.</p>
+<p>If there is no broader term for your new activity - i.e., it forms a its own top-level category at the top of the hierarchy - tick the 'Top Term' box.</p>
+<p>The 'Related Terms' field can be ignored.</p>
 <h4>Definitions</h4>
+<p>Click the 'Add' button to add a definition of your activity. A short description of the new activity should be supplied. Note that this should be a short, dictionary-style definition of the activity and not, for instance, a promotional blurb or review.</p>
 <h4>Notations</h4>
+<p>'Notation' here refers to how the activity is referred to by automated agents. It should be all lower-case, with individual words separated by a dash rather than a space (for example, 'rugby-union' rather than 'Rugby Union').</p>
+<h4>Publishing Your New Activity</h4>
+<p>Once you have finished creating your new activity, click 'Save' (at the bottom of the screen). </p>
+<p>Note that at this point, your new activity still isn't part of the activity hierarchy. For that to happen, you will need to scroll to the top of the screen and click on the 'Publish' button. Now your new activity is saved in the list and ready for export to the outside world.</p>
 <h3>Editing an Existing Activity</h3>
+<p>The workflow for modifying an activity already in the list involves more steps than might be expected.</p>
+<ol>
+  <li>Find the activity you wish to modify, possibly using Basic Find</li>
+  <li>Click on the activity</li>
+  <li>Click 'Create New Version'</li>
+  <li>Change the fields that need to be updated</li>
+  <li>Click the 'Save' button at the bottom of the screen</li>
+  <li>Click the 'Publish' button at the top of the screen</li>
+</ol>
+<p>Your modified activity is now ready for export.</p>
 <h3>Removing an Activity</h3>
+<p>Strictly speaking, the Activity List Editor (and the underlying iqvoc editor it is based on) does not have the concept of deleting a concept, as this could lead to broken links, etc.</p>
+<p>As a result, it is vitally important to check with downstream users of the Activity List (e.g. imin) to make sure they are adequately prepared for any scheduled deletions.</p> 
+<p>Once removal of an activity from the List has been agreed, the procedure for doing so runs as follows:</p>
+<ol>
+  <li>Find the activity you wish to modify, possibly using Basic Find</li>
+  <li>Click on the activity</li>
+  <li>Click 'Create New Version'</li>
+  <li>Under 'Properties' click 'Expired At'</li>
+  <li>In the pop-up calendar, select a date in the past</li>
+  <li>Click 'Save'</li>
+  <li>Click 'Publish'</li>
+</ol>
+<p>The activity will no longer appear in the Activity List, though a record remains in the database for retrieval if required.</p>
+<p>Your modified List is now ready for export.</p>
+<h3>Exporting the New Activity List</h3>
+<p>Once you have made all the changes you need to the Activity List, it is time to export the list for use by other systems. To do so:</p>
+<ol>
+  <li>Navigate to the 'Dashboard' (top navigation bar)</li>
+  <li>Click 'OpenActive Export' (left-hand navigation bar)</li>
+</ol>
+<p>After a pause of a few seconds, you should see a JSON rendering of the Activity List on your screen. This is an indication that the Activity List has been correctly processed, validated, and published by the Editor, and can now be used by systems downstream.</p>
+<p>If you do not receive JSON feedback, or receive an error message, email <a href="mailto:services@openactive.io">services@openactive.io</a> to report the fault - along, if desired, with a list of the changes you were hoping to make to the List.</p>
