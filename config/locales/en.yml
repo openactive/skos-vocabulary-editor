@@ -209,6 +209,8 @@ en:
        quick_search: "Quick search"
        help: "Help"
        basic_find: "Basic Find"
+       changelog: "Changelog"
+       instructions: "Editing"
      frontpage:
        type_to_browse: "Start typing to browse concepts"
      search_results:
