@@ -38,7 +38,7 @@
 <p>Click the 'Add' button to add a definition of your activity. A short description of the new activity should be supplied. Note that this should be a short, dictionary-style definition of the activity and not, for instance, a promotional blurb or review.</p>
 <br></br>
 <h4><b>Notations</b></h4>
-<p>'Notation' here refers to how the activity is referred to by automated agents. It should be all lower-case, with individual words separated by a dash rather than a space (for example, 'rugby-union' rather than 'Rugby Union').</p>
+<p>'Notation' here refers to how the activity is referred to by automated agents. It should be all lower-case, with individual words separated by an underscore rather than a space (for example, 'rugby_union' rather than 'Rugby Union').</p>
 <br></br>
 <h4><b>Publishing Your New Activity</b></h4>
 <p>Once you have finished creating your new activity, click 'Save' (at the bottom of the screen). </p>
@@ -80,3 +80,11 @@
 </ol>
 <p>After a pause of a few seconds, you should see a JSON rendering of the Activity List on your screen. This is an indication that the Activity List has been correctly processed, validated, and published by the Editor, and can now be used by systems downstream.</p>
 <p>If you do not receive JSON feedback, or receive an error message, email <a href="mailto:services@openactive.io">services@openactive.io</a> to report the fault - along, if desired, with a list of the changes you were hoping to make to the List.</p>
+<h4>For developers: confirming that changes have been exported</h4>
+<p>The export process works by pushing the updated JSON displayed on screen to the GitHub <a href="https://github.com/openactive/activity-list">openactive/activity-list</a> repository. More specifically:</p>
+<ol>
+  <li>the JSON is written to the <code>unvalidated_activity_list.jsonld</code> file</li>
+  <li>a <a href="https://github.com/openactive/activity-list/tree/master/.github/workflows">GitHub Workflow</a> validates the well-formedness of the file</li>
+  <li>if the file passes these checks, it is then written to <code>activity-list.jsonld</code>, where it will be available to downstream implementations using the file</li>
+  <li>if the file fails the checks, <code>activity-list.jsonld</code> is left untouched. The reason for the failure can be found by reviewing the <a href="https://github.com/openactive/activity-list/actions">Actions</a> history.</li>
+</ol>
