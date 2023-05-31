@@ -11,9 +11,9 @@
 
   <% if defined?(concept) %>
     <%= sidebar_header 'Contribute' %>
-    <%= sidebar_item :icon => 'link', :text => 'Suggest amendment', :path => 'https://docs.google.com/forms/d/e/1FAIpQLScuRUh4qjZu22u5UosdYbqX09HTYSbB61ykrSqdUlu9GieKmQ/viewform?usp=pp_url&entry.2049916836=' + ERB::Util.url_encode(concept.pref_label.to_s) %>
-    <%= sidebar_item :icon => 'link', :text => 'Suggest new activity', :path => 'https://docs.google.com/forms/d/e/1FAIpQLSf3qkgDNwUDG8jvsO1ld2J6q18wwIR3SlTmSZm8h9KxqCm-Ng/viewform' %>
-    <%= sidebar_item :icon => 'link', :text => 'General feedback', :path => 'https://docs.google.com/forms/d/e/1FAIpQLScBajDxNFxX2NSR61jhiK3-viPpgwPTyX513Zf--d3GLOp5QQ/viewform' %>
+    <%= sidebar_item :icon => 'link', :text => 'Suggest amendment', :path => 'https://docs.google.com/forms/d/e/1FAIpQLSfaKgMC-dySy8G7Lvv_9Uh-o48Db37B3BwHSHANyPlEpiEmFA/viewform?usp=pp_url&entry.1516405934=Suggest+an+edit+to+an+existing+term&entry.357421241=' + ERB::Util.url_encode(concept.pref_label.to_s) %>
+    <%= sidebar_item :icon => 'link', :text => 'Suggest new activity', :path => 'https://docs.google.com/forms/d/e/1FAIpQLSfaKgMC-dySy8G7Lvv_9Uh-o48Db37B3BwHSHANyPlEpiEmFA/viewform?usp=pp_url&entry.1516405934=Suggest+a+new+activity' %>
+    <%= sidebar_item :icon => 'link', :text => 'General feedback', :path => 'https://docs.google.com/forms/d/e/1FAIpQLSfaKgMC-dySy8G7Lvv_9Uh-o48Db37B3BwHSHANyPlEpiEmFA/viewform?usp=pp_url&entry.1516405934=Give+general+feedback' %>
   <% end %>
 
   <%= sidebar_header 'Links' %>
