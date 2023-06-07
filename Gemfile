@@ -95,7 +95,7 @@ group :production do
 end
 
 platforms :ruby do
-  gem 'therubyracer'
+  # gem 'therubyracer' # Not needed for deployment to heroku, not is the newer mini_racer
 end
 
 group :heroku do
