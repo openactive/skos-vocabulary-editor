@@ -16,6 +16,8 @@
 
 source 'https://rubygems.org'
 
+ruby '2.6.10' # Specifying as heroku-20 deployment looking for and failing to find 2.5.7
+
 # TODO: The following dependencies could be included by the "gemspec" command.
 # There is only one problem: gemspec puts the dependencies automatically to a
 # group (:development by default). This is not what we need.
