@@ -16,7 +16,6 @@
 
 require 'zip'
 
-
 #Derived from hierarchy_controller.rb
 class Concepts::OpenactiveController < ConceptsController
 
@@ -45,9 +44,9 @@ class Concepts::OpenactiveController < ConceptsController
       format.zip do
         # Create in-memory zip file
         buffer = Zip::OutputStream.write_buffer do |zip|
-          # Adding unvalidated_activity_list.jsonld to the ZIP
+          # Adding activity_list.jsonld to the ZIP
           concepts_json = generate_concepts_json(@concepts) # This method encapsulates the JSON generation logic
-          zip.put_next_entry('unvalidated_activity_list.jsonld')
+          zip.put_next_entry('activity_list.jsonld')
           zip.write(concepts_json)
 
           # Generate and add collections JSON files
