@@ -44,9 +44,9 @@ class Concepts::OpenactiveController < ConceptsController
       format.zip do
         # Create in-memory zip file
         buffer = Zip::OutputStream.write_buffer do |zip|
-          # Adding activity_list.jsonld to the ZIP
+          # Adding activity-list.jsonld to the ZIP
           concepts_json = generate_concepts_json(@concepts) # This method encapsulates the JSON generation logic
-          zip.put_next_entry('activity_list.jsonld')
+          zip.put_next_entry('activity-list.jsonld')
           zip.write(concepts_json)
 
           # Generate and add collections JSON files
@@ -61,7 +61,7 @@ class Concepts::OpenactiveController < ConceptsController
         buffer.rewind
 
         # Send the data to the client as a file download
-        send_data(buffer.read, filename: 'activity_list_with_collections.zip', type: 'application/zip')
+        send_data(buffer.read, filename: 'activity-list-with-collections.zip', type: 'application/zip')
       end
     end
   end

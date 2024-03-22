@@ -81,10 +81,5 @@
 <p>After a pause of a few seconds, you should see a JSON rendering of the Activity List on your screen. This is an indication that the Activity List has been correctly processed, validated, and published by the Editor, and can now be used by systems downstream.</p>
 <p>If you do not receive JSON feedback, or receive an error message, email <a href="mailto:services@openactive.io">services@openactive.io</a> to report the fault - along, if desired, with a list of the changes you were hoping to make to the List.</p>
 <h4>For developers: confirming that changes have been exported</h4>
-<p>The export process works by pushing the updated JSON displayed on screen to the GitHub <a href="https://github.com/openactive/activity-list">openactive/activity-list</a> repository. More specifically:</p>
-<ol>
-  <li>the JSON is written to the <code>unvalidated_activity_list.jsonld</code> file</li>
-  <li>a <a href="https://github.com/openactive/activity-list/tree/master/.github/workflows">GitHub Workflow</a> validates the well-formedness of the file</li>
-  <li>if the file passes these checks, it is then written to <code>activity-list.jsonld</code>, where it will be available to downstream implementations using the file</li>
-  <li>if the file fails the checks, <code>activity-list.jsonld</code> is left untouched. The reason for the failure can be found by reviewing the <a href="https://github.com/openactive/activity-list/actions">Actions</a> history.</li>
-</ol>
+<p>The export process works by triggering a workflow in the GitHub <a href="https://github.com/openactive/activity-list">openactive/activity-list</a> repository. Please see the README of that repository for more information.</p>
+
