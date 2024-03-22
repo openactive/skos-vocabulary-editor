@@ -14,6 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'zip'
+
+
 #Derived from hierarchy_controller.rb
 class Concepts::OpenactiveController < ConceptsController
 
@@ -37,114 +40,100 @@ class Concepts::OpenactiveController < ConceptsController
     #        Iqvoc::Concept.base_class.default_includes + [])
 
     @concepts.to_a.sort_by! {|c| c.pref_label }
-
+        
     respond_to do |format|
-      format.jsonld do
+      format.zip do
+        # Create in-memory zip file
+        buffer = Zip::OutputStream.write_buffer do |zip|
+          # Adding unvalidated_activity_list.jsonld to the ZIP
+          concepts_json = generate_concepts_json(@concepts) # This method encapsulates the JSON generation logic
+          zip.put_next_entry('unvalidated_activity_list.jsonld')
+          zip.write(concepts_json)
 
-        # Create main unvalidated_activity_list.jsonld file (which is then validated by CI within the activity-list repo)
-
-        concepts = @concepts.select { |c| can? :read, c }.map do |c|
-          url = "https://openactive.io/activity-list##{c.origin[1..-1]}"
-    #      definition = c.notes_for_class(Note::SKOS::Definition).empty? ? "" : c.notes_for_class(Note::SKOS::Definition).first.value
-          broader = []
-          c.broader_relations.each do |rel|
-            broader << "https://openactive.io/activity-list##{rel.target.origin[1..-1]}"
+          # Generate and add collections JSON files
+          @collections.each do |collection|
+            collection_json = generate_collection_json(collection) # This method encapsulates the JSON generation logic
+            zip.put_next_entry("collections/#{collection.origin[1..-1]}.jsonld")
+            zip.write(collection_json)
           end
-          narrower = []
-          c.narrower_relations.each do |rel|
-            narrower << "https://openactive.io/activity-list##{rel.target.origin[1..-1]}"
-          end
-          klass = Iqvoc::Concept.further_relation_classes.first # XXX: arbitrary; bad heuristic?
-          only_published = params[:published] != "0"
-          related = []
-          c.related_concepts_for_relation_class(klass, only_published).each do |related_concept|
-            related << "https://openactive.io/activity-list##{related_concept.origin[1..-1]}"
-          end
-          concept = {
-              id: url,
-              identifier: c.origin[1..-1],
-              type: "Concept",
-              prefLabel: c.pref_label.to_s
-          }
-          concept[:broader] = broader if broader.any?
-          concept[:narrower] = narrower if narrower.any?
-          concept[:related] = related if related.any?
-          c.notes_for_class(Note::SKOS::Definition).each do |n|
-            concept[:definition] = n.value
-          end
-          c.notations.each do |n|
-            concept[:notation] = n.value
-          end
-
-          concept[:topConceptOf] = "https://openactive.io/activity-list" if c.top_term?
-          c.alt_labels.each do |l|
-            concept[:altLabel] ||= []
-            concept[:altLabel] << l.value
-          end
-          concept
         end
-        raw_hash = {
-            "@context": "https://openactive.io/",
-            id: "https://openactive.io/activity-list",
-            title: "OpenActive Activity List",
-            description: "This document describes the OpenActive standard activity list.",
-            type: "ConceptScheme",
-            license: "https://creativecommons.org/licenses/by/4.0/",
-            concept: concepts
-        }
-        render json: raw_hash
-        pretty_json = JSON.pretty_generate(raw_hash)
 
-        client = Octokit::Client.new(:login => ENV["GIT_UID"], :password => ENV["GIT_PSW"])
-        orig_file = client.contents("openactive/activity-list", :path => 'unvalidated_activity_list.jsonld')
-        sha = orig_file[:sha]
-        client.create_contents("openactive/activity-list",
-                 "unvalidated_activity_list.jsonld",
-                 "Adding unvalidated content",
-                 pretty_json,
-                 :branch => "master",
-                 :sha => sha
-                 )
+        # Rewind the buffer to allow for reading
+        buffer.rewind
 
-        # Create collections jsonld files (which are not validated)
-
-        collections = @collections.select { |c| can? :read, c }.each do |c|
-          collectionname = c.origin[1..-1]
-          filename = "collections/#{collectionname}.jsonld"
-          url = "https://openactive.io/activity-list/#{filename}"
-          members = []
-          c.concepts.each do |rel|
-            members << "https://openactive.io/activity-list##{rel.origin[1..-1]}"
-          end
-          collection = {
-              "@context": "https://openactive.io/",
-              "@type": "ConceptCollection",
-              "@id": url,
-              prefLabel: c.pref_label.to_s,
-              inScheme: "https://openactive.io/activity-list",
-              license: "https://creativecommons.org/licenses/by/4.0/"
-          }
-          c.alt_labels.each do |l|
-            collection[:altLabel] ||= []
-            collection[:altLabel] << l.value
-          end
-          c.notes_for_class(Note::SKOS::Definition).each do |n|
-            collection[:definition] = n.value
-          end
-          collection[:member] = members if members.any?
-          collection_pretty_json = JSON.pretty_generate(collection)
-
-          orig_file = client.contents("openactive/activity-list", :path => filename)
-          sha = orig_file[:sha]
-          client.create_contents("openactive/activity-list",
-                   filename,
-                   "Updating collection #{collectionname}",
-                   collection_pretty_json,
-                   :branch => "master",
-                   :sha => sha
-                   )
-        end
+        # Send the data to the client as a file download
+        send_data(buffer.read, filename: 'activity_list_with_collections.zip', type: 'application/zip')
       end
     end
+  end
+
+  private
+
+  # Define the methods to generate JSON for concepts and collections
+  def generate_concepts_json(concepts)
+    concepts_map = concepts.select { |c| can? :read, c }.map do |c|
+      concept_data = {
+        id: "https://openactive.io/activity-list##{c.origin[1..-1]}",
+        identifier: c.origin[1..-1],
+        type: "Concept",
+        prefLabel: c.pref_label.to_s
+      }
+  
+      # Broader and narrower relations
+      concept_data[:broader] = c.broader_relations.map { |rel| "https://openactive.io/activity-list##{rel.target.origin[1..-1]}" } if c.broader_relations.any?
+      concept_data[:narrower] = c.narrower_relations.map { |rel| "https://openactive.io/activity-list##{rel.target.origin[1..-1]}" } if c.narrower_relations.any?
+  
+      # Related concepts, definitions, notations, and alternative labels
+      # Adjust these parts based on your model's methods and attributes
+      related, definitions, notations, alt_labels = [], [], [], []
+      c.related_concepts.each { |related_concept| related << "https://openactive.io/activity-list##{related_concept.origin[1..-1]}" }
+      concept_data[:related] = related if related.any?
+  
+      c.notes.each { |note| definitions << note.value if note.type == "Definition" }
+      concept_data[:definition] = definitions.first if definitions.any?
+  
+      c.notations.each { |notation| notations << notation.value }
+      concept_data[:notation] = notations.first if notations.any?
+  
+      c.alt_labels.each { |label| alt_labels << label.value }
+      concept_data[:altLabel] = alt_labels if alt_labels.any?
+  
+      concept_data
+    end
+  
+    # Wrapping the concepts in a larger JSON structure
+    json_structure = {
+      "@context": "https://openactive.io/",
+      id: "https://openactive.io/activity-list",
+      title: "OpenActive Activity List",
+      description: "This document describes the OpenActive standard activity list.",
+      type: "ConceptScheme",
+      license: "https://creativecommons.org/licenses/by/4.0/",
+      concept: concepts_map
+    }
+    JSON.pretty_generate(json_structure)
+  end
+
+  def generate_collection_json(collection)
+    collection_json = {
+      "@context": "https://openactive.io/",
+      "@type": "ConceptCollection",
+      "@id": "https://openactive.io/activity-list/collections/#{collection.origin[1..-1]}.jsonld",
+      prefLabel: collection.pref_label.to_s,
+      inScheme: "https://openactive.io/activity-list",
+      license: "https://creativecommons.org/licenses/by/4.0/"
+    }
+  
+    # Adding members, alternative labels, and definitions
+    members = collection.members.map { |member| "https://openactive.io/activity-list##{member.origin[1..-1]}" }
+    collection_json[:member] = members if members.any?
+  
+    alt_labels = collection.alt_labels.map(&:value)
+    collection_json[:altLabel] = alt_labels if alt_labels.any?
+  
+    definitions = collection.notes.select { |note| note.type == "Definition" }.map(&:value)
+    collection_json[:definition] = definitions.first if definitions.any?
+  
+    JSON.pretty_generate(collection_json)
   end
 end

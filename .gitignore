@@ -29,3 +29,5 @@ activity-list/validated_activity_list.jsonld
 
 # Ignore application configuration
 /config/application.yml
+
+bash_history.txt
