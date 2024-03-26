@@ -82,7 +82,7 @@ class Concepts::OpenactiveController < ConceptsController
 
       client.workflow_dispatch(repo, workflow_id, ref, inputs)
 
-      flash[:notice] = 'Publish triggered successfully!'
+      flash[:notice] = 'Publish triggered successfully! You should <a href="https://github.com/openactive/activity-list/releases">see the changes published</a> soon.'
     else
       flash[:alert] = 'Publishing canceled.'
     end
