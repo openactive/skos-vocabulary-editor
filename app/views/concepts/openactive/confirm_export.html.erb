@@ -1,5 +1,5 @@
-<h1>Publish Activity List</h1>
-<p>Do you want to publish a new version of the OpenActive Activity List?</p>
+<h1>Publish <%= ENV['VOCAB_NAME'] =></h1>
+<p>Do you want to publish a new version of the OpenActive ENV['VOCAB_NAME']?</p>
 <div style="display: flex; align-items: center; gap: 10px;">
   <%= form_tag(trigger_export_path, method: :post, style: "display: flex; flex: 1;") do %>
     <%= hidden_field_tag :confirm, 'yes' %>

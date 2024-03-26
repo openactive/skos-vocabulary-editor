@@ -136,8 +136,8 @@ class Concepts::OpenactiveController < ConceptsController
     raw_hash = {
         "@context": "https://openactive.io/",
         id: "https://openactive.io/activity-list",
-        title: "OpenActive Activity List",
-        description: "This document describes the OpenActive standard activity list.",
+        title: "OpenActive #{ENV['VOCAB_NAME']}",
+        description: "#{ENV['VOCAB_DESCRIPTION']}",
         type: "ConceptScheme",
         license: "https://creativecommons.org/licenses/by/4.0/",
         concept: concepts
