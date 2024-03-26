@@ -1,6 +1,6 @@
 <h1>Publish Activity List</h1>
 <p>Do you want to publish a new version of the OpenActive Activity List?</p>
-<%= form_with url: trigger_export_path, method: :post do |form| %>
+<%= form_tag(trigger_export_path, method: :post) do %>
   <%= hidden_field_tag :confirm, 'yes' %>
   <%= submit_tag 'Yes, trigger it!' %>
 <% end %>
