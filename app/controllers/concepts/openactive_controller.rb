@@ -76,9 +76,9 @@ class Concepts::OpenactiveController < ConceptsController
       repo = 'openactive/activity-list'
       workflow_id = 'create-and-merge-pr.yaml'
       ref = 'master'
-      # inputs = {
-      #   'author' => current_user.name,
-      # }
+      inputs = {
+        # 'author' => current_user.name,
+      }
 
       client.workflow_dispatch(repo, workflow_id, ref, inputs)
 
