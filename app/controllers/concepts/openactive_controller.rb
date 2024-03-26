@@ -66,6 +66,45 @@ class Concepts::OpenactiveController < ConceptsController
     end
   end
 
+  def confirm_export
+    # This action will render a view asking for confirmation
+  end
+
+  def trigger_export
+    if params[:confirm] == 'yes'
+      client = Octokit::Client.new(:login => ENV['GIT_UID'], :password => ENV['GIT_PSW'])
+      repo = 'openactive/activity-list'
+      workflow_id = 'create-and-merge-pr.yaml'
+      ref = 'master'
+      inputs = {
+        'author' => current_user.name,
+      }
+
+      client.workflow_dispatch(repo, workflow_id, ref, inputs)
+
+      flash[:notice] = 'Publish triggered successfully!'
+    else
+      flash[:alert] = 'Publishing canceled.'
+    end
+    redirect_to confirm_export_path
+  end
+
+  def 
+    authorize! :export, Concept::Base
+
+    client = Octokit::Client.new(:login => ENV["GIT_UID"], :password => ENV["GIT_PSW"])
+    orig_file = client.contents("openactive/activity-list", :path => 'unvalidated_activity_list.jsonld')
+    sha = orig_file[:sha]
+    client.create_contents("openactive/activity-list",
+             "unvalidated_activity_list.jsonld",
+             "Adding unvalidated content",
+             pretty_json,
+             :branch => "master",
+             :sha => sha
+             )
+
+  end
+
   private
 
   # Define the methods to generate JSON for concepts and collections

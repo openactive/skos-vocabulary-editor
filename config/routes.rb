@@ -70,6 +70,8 @@ Rails.application.routes.draw do
     get 'hierarchical_concepts' => 'concepts/hierarchical#index', as: 'hierarchical_concepts'
     get 'expired_concepts' => 'concepts/expired#index', as: 'expired_concepts'
     get 'openactive_concepts' => 'concepts/openactive#index', as: 'openactive_concepts'
+    get 'confirm_export' => 'concepts/openactive#confirm_export', as: 'confirm_export'
+    post 'trigger_export' => 'concepts/openactive#trigger_export', as: 'trigger_export'
 
     get 'dashboard' => 'dashboard#concept_index', as: 'dashboard'
     get 'dashboard_glance' => 'dashboard#glance', as: 'dashboard_glance'
