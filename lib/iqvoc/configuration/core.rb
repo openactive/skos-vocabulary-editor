@@ -146,7 +146,7 @@ module Iqvoc
 
         # initialize
         self.config.register_settings({
-          'title' => 'OpenActive #{ENV['VOCAB_NAME']}',
+          'title' => "OpenActive #{ENV['VOCAB_NAME']}",
           'languages.pref_labeling' => ['en', 'de'],
           'languages.further_labelings.Labeling::SKOS::AltLabel' => ['en', 'de'],
           'languages.notes' => ['en', 'de'],
