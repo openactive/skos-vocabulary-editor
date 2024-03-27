@@ -19,7 +19,7 @@
   <%= sidebar_header 'Links' %>
   <% if defined?(concept) %>
     <!-- <%= sidebar_item :icon => 'link', :text => t('txt.models.concept.uri'), :path => rdf_url(concept.origin, :format => nil, :published => published_param, :lang => nil) %> -->
-    <%= sidebar_item :icon => 'link', :text => 'Concept @id', :path => 'https://openactive.io/activity-list#' + CGI.escapeHTML(concept.origin[1..-1]) %>
+    <%= sidebar_item :icon => 'link', :text => 'Concept @id', :path => "https://openactive.io/#{ENV['VOCAB_IDENTIFIER']}##{CGI.escapeHTML(concept.origin[1..-1])}" %>
   <% end %>
 
   <% (Iqvoc.first_level_classes - [Collection::SKOS::Unordered]).each do |klass| %>

@@ -81,5 +81,5 @@
 <p>After a pause of a few seconds, you should see a JSON rendering of the <%= ENV['VOCAB_NAME'] %> on your screen. This is an indication that the <%= ENV['VOCAB_NAME'] %> has been correctly processed, validated, and published by the Editor, and can now be used by systems downstream.</p>
 <p>If you do not receive JSON feedback, or receive an error message, email <a href="mailto:services@openactive.io">services@openactive.io</a> to report the fault - along, if desired, with a list of the changes you were hoping to make to the List.</p>
 <h4>For developers: confirming that changes have been exported</h4>
-<p>The export process works by triggering a workflow in the GitHub <a href="https://github.com/openactive/activity-list">openactive/activity-list</a> repository. Please see the README of that repository for more information.</p>
+<p>The export process works by triggering a workflow in the GitHub <a href="https://github.com/openactive/<%= ENV['VOCAB_IDENTIFIER'] %>">openactive/<%= ENV['VOCAB_IDENTIFIER'] %></a> repository. Please see the README of that repository for more information.</p>
 
