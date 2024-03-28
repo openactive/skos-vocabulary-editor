@@ -77,7 +77,7 @@ class Concepts::OpenactiveController < ConceptsController
       workflow_id = 'create-and-merge-pr.yaml'
       ref = 'master'
       options = {
-        inputs => {
+        'inputs' => {
           'publisher' => current_user.name,
         }
       }
