@@ -1,4 +1,8 @@
 {
+  "name": "skos-vocabulary-editor",
+  "description": "OpenActive SKOS Vocabulary Editor, a fork of iQvoc",
+  "repository": "https://github.com/openactive/skos-vocabulary-editor",
+  "logo": "https://openactive.io/brand-assets/openactive-logo-small.png",
   "addons": [
     "heroku-postgresql"
   ],
@@ -7,7 +11,6 @@
       "url": "heroku/ruby"
     }
   ],
-  "description": "OpenActive SKOS Vocabulary Editor, a fork of iQvoc",
   "env": {
     "LANG": "en_US.UTF-8",
     "RACK_ENV": "production",
@@ -36,7 +39,6 @@
       "quantity": 1
     }
   },
-  "name": "skos-vocabulary-editor",
   "scripts": {
   },
   "stack": "heroku-20"
