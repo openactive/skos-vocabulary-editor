@@ -1,0 +1,43 @@
+{
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "description": "OpenActive SKOS Vocabulary Editor, a fork of iQvoc",
+  "env": {
+    "LANG": "en_US.UTF-8",
+    "RACK_ENV": "production",
+    "RAILS_ENV": "production",
+    "RAILS_SERVE_STATIC_FILES": "enabled",
+    "SECRET_KEY_BASE": {
+      "generator": "secret"
+    },
+    "VOCAB_DESCRIPTION": "The OpenActive Activity List is a standardised list of physical activities widely practiced in the UK. Its intent is to improve the accuracy and findability of physical activities by providing standardised labels and identifiers for all the activities it contains. It is collaboratively maintained by the community of the UK's activity providers, and aims as far as possible to be reliable, comprehensive, and complete.",
+    "VOCAB_HELP_URL": "https://developer.openactive.io/publishing-data/activity-list-references",
+    "VOCAB_IDENTIFIER": "activity-list",
+    "VOCAB_JSONLD_ID": "https://openactive.io/activity-list/activity-list.jsonld",
+    "VOCAB_NAME": "Activity List",
+    "VOCAB_RELEASES_URL": "https://github.com/openactive/activity-list/releases",
+    "VOCAB_SUGGESTIONS_FORM": "https://docs.google.com/forms/d/e/1FAIpQLSfaKgMC-dySy8G7Lvv_9Uh-o48Db37B3BwHSHANyPlEpiEmFA/viewform",
+    "VOCAB_WORKFLOW_GH_ACCESS_TOKEN": {
+      "required": true
+    },
+    "VOCAB_WORKFLOW_GH_UID": "openactive-bot"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    },
+    "worker": {
+      "quantity": 1
+    }
+  },
+  "name": "skos-vocabulary-editor",
+  "scripts": {
+  },
+  "stack": "heroku-20"
+}
