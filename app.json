@@ -2,7 +2,7 @@
   "name": "skos-vocabulary-editor",
   "description": "OpenActive SKOS Vocabulary Editor, a fork of iQvoc",
   "repository": "https://github.com/openactive/skos-vocabulary-editor",
-  "logo": "https://openactive.io/brand-assets/openactive-logo-small.png",
+  "logo": "https://openactive.io/brand-assets/openactive-icon-64x64.png",
   "addons": [
     "heroku-postgresql"
   ],
