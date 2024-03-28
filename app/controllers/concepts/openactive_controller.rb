@@ -76,11 +76,13 @@ class Concepts::OpenactiveController < ConceptsController
       repo = "openactive/#{ENV['VOCAB_IDENTIFIER']}"
       workflow_id = 'create-and-merge-pr.yaml'
       ref = 'master'
-      inputs = {
-        'publisher' => current_user.name,
+      options = {
+        inputs => {
+          'publisher' => current_user.name,
+        }
       }
 
-      client.workflow_dispatch(repo, workflow_id, ref, inputs)
+      client.workflow_dispatch(repo, workflow_id, ref, options)
     else
       redirect_to confirm_export_path
     end
