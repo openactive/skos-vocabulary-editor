@@ -72,7 +72,7 @@ class Concepts::OpenactiveController < ConceptsController
 
   def trigger_export
     if params[:confirm] == 'yes'
-      client = Octokit::Client.new(:login => ENV['GIT_UID'], :password => ENV['GIT_PSW'])
+      client = Octokit::Client.new(:login => ENV['VOCAB_WORKFLOW_GH_UID'], :password => ENV['VOCAB_WORKFLOW_GH_ACCESS_TOKEN'])
       repo = "openactive/#{ENV['VOCAB_IDENTIFIER']}"
       workflow_id = 'create-and-merge-pr.yaml'
       ref = 'master'
