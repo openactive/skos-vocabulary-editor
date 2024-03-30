@@ -75,7 +75,7 @@ class Concepts::OpenactiveController < ConceptsController
       client = Octokit::Client.new(:login => ENV['VOCAB_WORKFLOW_GH_UID'], :password => ENV['VOCAB_WORKFLOW_GH_ACCESS_TOKEN'])
       repo = "openactive/#{ENV['VOCAB_IDENTIFIER']}"
       workflow_id = 'create-and-merge-pr.yaml'
-      ref = 'master'
+      ref = 'main'
       options = {
         'inputs' => {
           'publisher' => current_user.name,
