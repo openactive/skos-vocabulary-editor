@@ -75,7 +75,7 @@ module Iqvoc
         },
           {
           text: proc { t('txt.views.navigation.changelog') },
-          href: "https://github.com/openactive/#{VOCAB_IDENTIFIER}/releases"
+          href: "https://github.com/openactive/#{ENV['VOCAB_IDENTIFIER']}/releases"
           }
      #      ,
      #   {
