@@ -121,13 +121,29 @@ class Concepts::OpenactiveController < ConceptsController
       c.related_concepts_for_relation_class(Concept::Relation::SKOS::Related).each do |related_concept|
         related << "https://openactive.io/#{ENV['VOCAB_IDENTIFIER']}##{related_concept.origin[1..-1]}"
       end
+
+      # Parse the VOCAB_EXPORT_RELATED_MATCHES environment variable (value e.g. "facility-types:facilityType;activity-list:activity")
+      export_related_matches = ENV['VOCAB_EXPORT_RELATED_MATCHES']
+      match_mappings = {}
+      if export_related_matches
+        export_related_matches.split(';').each do |mapping|
+          vocab_identifier, property = mapping.split(':')
+          match_mappings[vocab_identifier] = property.to_sym
+        end
+      end
+
+      matches = []
+      additional_match_properties = Hash.new { |hash, key| hash[key] = [] }
+
       matches = []
       c.matches_for_class(Match::SKOS::RelatedMatch).each do |match|
         # Transform format from e.g. https://facility-types.openactive.io/_93927309-8e8a-460d-9a55-2a9a4844a7c0 to https://openactive.io/facility-types#93927309-8e8a-460d-9a55-2a9a4844a7c0
         if match.value =~ %r{https://([^.]+)\.openactive\.io/_([0-9a-f-]+)$}
           match_vocab_identifier = $1
           match_id = $2
-          matches << "https://openactive.io/#{match_vocab_identifier}##{match_id}"
+          if match_mappings.key?(match_vocab_identifier)
+            additional_match_properties[match_mappings[match_vocab_identifier]] << "https://openactive.io/#{match_vocab_identifier}##{match_id}"
+          end
         end
       end
       concept = {
@@ -139,7 +155,12 @@ class Concepts::OpenactiveController < ConceptsController
       concept[:broader] = broader if broader.any?
       concept[:narrower] = narrower if narrower.any?
       concept[:related] = related if related.any?
-      concept[:matches] = matches if matches.any?
+
+      # Add additional properties based on matches
+      additional_match_properties.each do |property, urls|
+        concept[property] = urls if urls.any?
+      end
+
       c.notes_for_class(Note::SKOS::Definition).each do |n|
         concept[:definition] = n.value
       end
