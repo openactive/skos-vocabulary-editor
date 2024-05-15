@@ -38,7 +38,7 @@
     }
   },
   "scripts": {
-    "postdeploy": "rake db:migrate; rake db:seed",
-  }
+    "postdeploy": "rake db:migrate; rake db:seed"
+  },
   "stack": "heroku-20"
 }
