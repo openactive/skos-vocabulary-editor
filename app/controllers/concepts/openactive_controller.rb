@@ -44,7 +44,7 @@ class Concepts::OpenactiveController < ConceptsController
       format.zip do
         # Create in-memory zip file
         buffer = Zip::OutputStream.write_buffer do |zip|
-          # Adding activity-list.jsonld to the ZIP
+          # Adding <skos-vocabulary-identifier>.jsonld to the ZIP
           concepts_json = generate_concepts_json(@concepts) # This method encapsulates the JSON generation logic
           zip.put_next_entry("#{ENV['VOCAB_IDENTIFIER']}.jsonld")
           zip.write(concepts_json)

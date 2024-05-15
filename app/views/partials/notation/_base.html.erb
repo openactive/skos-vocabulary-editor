@@ -10,7 +10,7 @@
   <h2><%= ENV['VOCAB_NAME'] %> Reference Example</h2>
   <div class="relation-body">
     <p>This example can be used by a software developer to help them hardcode "<%= CGI.escapeHTML(concept.pref_label.to_s) %>" within an open data feed:</p>
-    <pre>"activity": [
+    <pre>"<%= ENV['VOCAB_PROPERTY'] %>": [
   {
     "@type": "Concept",
     "@id": "https://openactive.io/<%= ENV['VOCAB_IDENTIFIER'] %>#<%= CGI.escapeHTML(concept.origin[1..-1]) %>",
