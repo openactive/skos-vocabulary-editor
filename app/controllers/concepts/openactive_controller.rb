@@ -76,9 +76,22 @@ class Concepts::OpenactiveController < ConceptsController
       repo = "openactive/#{ENV['VOCAB_IDENTIFIER']}"
       workflow_id = 'create-and-merge-pr.yaml'
       ref = 'main'
+
+      release_timestamp = params[:release_timestamp]
+    
+      # Check if the chosen release date/time is today
+      if release_timestamp.present?  
+        if Date.parse(release_timestamp) == Date.today
+          release_timestamp = ''
+        else
+          release_timestamp = DateTime.parse(release_timestamp).strftime("%Y-%m-%d_%H-%M-%S")
+        end
+      end
+
       options = {
         'inputs' => {
           'publisher' => current_user.name,
+          'timestamp' => release_timestamp || ''
         }
       }
 
