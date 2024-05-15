@@ -118,11 +118,11 @@ class Concepts::OpenactiveController < ConceptsController
         narrower << "https://openactive.io/#{ENV['VOCAB_IDENTIFIER']}##{rel.target.origin[1..-1]}"
       end
       related = []
-      c.related_concepts_for_relation_class('Concept::Relation::SKOS::Related').each do |related_concept|
+      c.related_concepts_for_relation_class(Concept::Relation::SKOS::Related).each do |related_concept|
         related << "https://openactive.io/#{ENV['VOCAB_IDENTIFIER']}##{related_concept.origin[1..-1]}"
       end
       matches = []
-      c.matches_for_class('Match::SKOS::RelatedMatch').each do |match|
+      c.matches_for_class(Match::SKOS::RelatedMatch).each do |match|
         # Transform format from e.g. https://facility-types.openactive.io/_93927309-8e8a-460d-9a55-2a9a4844a7c0 to https://openactive.io/facility-types#93927309-8e8a-460d-9a55-2a9a4844a7c0
         if match.value =~ %r{https://([^.]+)\.openactive\.io/_([0-9a-f-]+)$}
           match_vocab_identifier = $1
