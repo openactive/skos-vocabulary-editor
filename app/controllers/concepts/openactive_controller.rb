@@ -125,6 +125,7 @@ class Concepts::OpenactiveController < ConceptsController
       matches = []
       c.matches_for_class(klass).each do |match|
         # Transform format from e.g. https://facility-types.openactive.io/_93927309-8e8a-460d-9a55-2a9a4844a7c0 to https://openactive.io/facility-types#93927309-8e8a-460d-9a55-2a9a4844a7c0
+        matches << match.value
         if match.value =~ %r{https://([^.]+)\.openactive\.io/_([0-9a-f-]+)$}
           match_vocab_identifier = $1
           match_id = $2
