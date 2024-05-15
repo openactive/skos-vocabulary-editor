@@ -9,7 +9,7 @@
           <%= text_field_tag :release_author, current_user.name, readonly: true, style: "width: 100%;" %>
         </div>
         <div style="flex: 1; margin-top: 10px;">
-          <label for="release_timestamp">Release Date/Time:</label>
+          <label for="release_timestamp">Release Timestamp:</label>
           <%= datetime_local_field_tag :release_timestamp, Time.now.strftime("%Y-%m-%dT%H:%M"), style: "width: 100%;" %>
           <small>If this date is set to a day that is not today, this overrides the release timestamp.</small>
         </div>
