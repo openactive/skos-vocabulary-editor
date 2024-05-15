@@ -118,10 +118,18 @@ class Concepts::OpenactiveController < ConceptsController
         narrower << "https://openactive.io/#{ENV['VOCAB_IDENTIFIER']}##{rel.target.origin[1..-1]}"
       end
       klass = Iqvoc::Concept.further_relation_classes.first # XXX: arbitrary; bad heuristic?
-      only_published = params[:published] != "0"
       related = []
-      c.related_concepts_for_relation_class(klass, only_published).each do |related_concept|
+      c.related_concepts_for_relation_class(klass).each do |related_concept|
         related << "https://openactive.io/#{ENV['VOCAB_IDENTIFIER']}##{related_concept.origin[1..-1]}"
+      end
+      matches = []
+      c.matches_for_class(klass).each do |match|
+        # Transform format from e.g. https://facility-types.openactive.io/_93927309-8e8a-460d-9a55-2a9a4844a7c0 to https://openactive.io/facility-types#93927309-8e8a-460d-9a55-2a9a4844a7c0
+        if match.value =~ %r{https://([^.]+)\.openactive\.io/_([0-9a-f-]+)$}
+          match_vocab_identifier = $1
+          match_id = $2
+          matches << "https://openactive.io/#{match_vocab_identifier}##{match_id}"
+        end
       end
       concept = {
           id: url,
@@ -132,6 +140,7 @@ class Concepts::OpenactiveController < ConceptsController
       concept[:broader] = broader if broader.any?
       concept[:narrower] = narrower if narrower.any?
       concept[:related] = related if related.any?
+      concept[:matches] = matches if matches.any?
       c.notes_for_class(Note::SKOS::Definition).each do |n|
         concept[:definition] = n.value
       end
