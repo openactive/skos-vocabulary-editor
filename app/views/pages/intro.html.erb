@@ -1,15 +1,15 @@
-<%= page_header :title => "OpenActive #{ ENV['VOCAB_NAME'] }" %>
-<%= ENV['VOCAB_DESCRIPTION'] %><br><br>
-<ul style="list-style: none;">
-<li><a href="/en/hierarchical_concepts.html">View <%= ENV['VOCAB_NAME'] %></a></li>
-<li><a href="/en/basic_find.html">Search <%= ENV['VOCAB_NAME'] %></a></li>
-</ul>
 <% if ENV['VOCAB_DRAFT'] == "true" %>
 <div class="alert alert-warning" role="alert">
   <h4>Status: <span style="color: red; font-weight: bold;">DRAFT</span></h4>
   This controlled vocabulary is in a draft state, and is associated with the beta property <a href="<%= render_property_url(ENV['VOCAB_PROPERTY']) %>"><code><%= ENV['VOCAB_PROPERTY'] %></code></a>, however every effort will be made in subsequent revisions to maintain the IDs associated with the concepts enumerated here.
 </div>
 <% end %>
+<%= page_header :title => "OpenActive #{ ENV['VOCAB_NAME'] }" %>
+<%= ENV['VOCAB_DESCRIPTION'] %><br><br>
+<ul style="list-style: none;">
+<li><a href="/en/hierarchical_concepts.html">View <%= ENV['VOCAB_NAME'] %></a></li>
+<li><a href="/en/basic_find.html">Search <%= ENV['VOCAB_NAME'] %></a></li>
+</ul>
 <h2>Contributing to the OpenActive <%= ENV['VOCAB_NAME'] %></h2>
 If you would like to propose additions to the list - or if you believe you have spotted an error in or necessary improvement to the list - please use the suggestion link below.<br><br>
 <ul style="list-style: none;">
