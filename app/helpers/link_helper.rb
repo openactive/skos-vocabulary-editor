@@ -21,4 +21,13 @@ module LinkHelper
       url
     end
   end
+
+  def render_property_url(property_name)
+    if property_name =~ %r{^beta:(.+)$}
+      property = $1
+      "https://openactive.io/ns-beta/#" + property
+    else
+      property_name
+    end
+  end
 end
