@@ -18,7 +18,7 @@ module LinkHelper
       id = $2
       "https://openactive.io/#{vocab_identifier}##{id}"
     else
-      url
+      "Not found"
     end
   end
 end
