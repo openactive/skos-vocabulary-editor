@@ -1,6 +1,6 @@
 <li class="search-result" data-rdf-namespace="<%= iqvoc_default_rdf_namespaces[result.rdf_namespace.try(:to_sym)] %>" data-rdf-predicate="<%= result.rdf_predicate %>" data-rdf-value="<%= result.label %>" data-rdf-language="<%= result.language %>">
   <%= link_to(result.label, result.url.to_s, :class => 'search-result-link') %>
-  <span class="search-result-uri"><%= result.url %></span>
+  <span class="search-result-uri"><%= render_skos_id(result.url) %></span>
   <% if result.body.present? %>
   <p class="search-result-body"><%= result.body %></p>
   <% end %>

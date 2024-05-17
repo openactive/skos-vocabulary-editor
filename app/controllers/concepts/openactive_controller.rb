@@ -122,7 +122,7 @@ class Concepts::OpenactiveController < ConceptsController
         related << "https://openactive.io/#{ENV['VOCAB_IDENTIFIER']}##{related_concept.origin[1..-1]}"
       end
 
-      # Parse the VOCAB_EXPORT_RELATED_MATCHES environment variable (value e.g. "facility-types:facilityType;activity-list:activity")
+      # Parse the VOCAB_EXPORT_RELATED_MATCHES environment variable (e.g. "facility-types:facilityType;activity-list:activity")
       export_related_matches = ENV['VOCAB_EXPORT_RELATED_MATCHES']
       match_mappings = {}
       if export_related_matches
@@ -132,6 +132,7 @@ class Concepts::OpenactiveController < ConceptsController
         end
       end
 
+      # Hashmap to collect matches for each property
       matches = []
       additional_match_properties = Hash.new { |hash, key| hash[key] = [] }
 
@@ -146,6 +147,7 @@ class Concepts::OpenactiveController < ConceptsController
           end
         end
       end
+      
       concept = {
           id: url,
           identifier: c.origin[1..-1],
