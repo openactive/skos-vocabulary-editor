@@ -13,12 +13,12 @@ module LinkHelper
   end
 
   def render_skos_id(url)
-    if url =~ %r{https://([^.]+)\.openactive\.io/_([0-9a-f-]+)$}
+    if url =~ %r{^https://([^.]+)\.openactive\.io/_([0-9a-f-]+)$}
       vocab_identifier = $1
       id = $2
       "https://openactive.io/#{vocab_identifier}##{id}"
     else
-      "Not found"
+      url
     end
   end
 end
