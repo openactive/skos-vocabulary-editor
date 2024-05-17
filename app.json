@@ -27,7 +27,7 @@
     "VOCAB_DRAFT": "false",
     "VOCAB_EXPORT_RELATED_MATCHES": "facility-types:facilityType;activity-list:activity",
     "VOCAB_NAME": "Activity List",
-    "VOCAB_SUGGESTIONS_FORM": "https://docs.google.com/forms/d/e/1FAIpQLSfaKgMC-dySy8G7Lvv_9Uh-o48Db37B3BwHSHANyPlEpiEmFA/viewform",
+    "VOCAB_SUGGESTIONS_LINK": "https://docs.google.com/forms/d/e/1FAIpQLSfaKgMC-dySy8G7Lvv_9Uh-o48Db37B3BwHSHANyPlEpiEmFA/viewform",
     "VOCAB_WORKFLOW_GH_ACCESS_TOKEN": {
       "required": true
     },
