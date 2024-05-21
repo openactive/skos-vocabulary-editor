@@ -20,18 +20,48 @@
     "SECRET_KEY_BASE": {
       "generator": "secret"
     },
-    "VOCAB_DESCRIPTION": "The OpenActive Activity List is a standardised list of physical activities widely practiced in the UK. Its intent is to improve the accuracy and findability of physical activities by providing standardised labels and identifiers for all the activities it contains. It is collaboratively maintained by the community of the UK's activity providers, and aims as far as possible to be reliable, comprehensive, and complete.",
-    "VOCAB_HELP_URL": "https://developer.openactive.io/publishing-data/activity-list-references",
-    "VOCAB_IDENTIFIER": "activity-list",
-    "VOCAB_PROPERTY": "activity",
-    "VOCAB_DRAFT": "false",
-    "VOCAB_EXPORT_RELATED_MATCHES": "facility-types:facilityType;activity-list:activity",
-    "VOCAB_NAME": "Activity List",
-    "VOCAB_SUGGESTIONS_LINK": "https://docs.google.com/forms/d/e/1FAIpQLSfaKgMC-dySy8G7Lvv_9Uh-o48Db37B3BwHSHANyPlEpiEmFA/viewform",
+    "VOCAB_IDENTIFIER": {
+      "description": "Vocabulary identifier, which must exactly match its GitHub Repository name, e.g. `activity-list`.",
+      "value": "activity-list"
+    },
+    "VOCAB_NAME": {
+      "description": "Name of this vocabulary; should be of the form `X List`.",
+      "value": "Activity List"
+    },
+    "VOCAB_DESCRIPTION": {
+      "description": "Description of this SKOS Vocabulary.",
+      "value": "The OpenActive Activity List is a standardised list of physical activities widely practiced in the UK. Its intent is to improve the accuracy and findability of physical activities by providing standardised labels and identifiers for all the activities it contains. It is collaboratively maintained by the community of the UK's activity providers, and aims as far as possible to be reliable, comprehensive, and complete."
+    },
+    "VOCAB_HELP_URL": {
+      "description": "URL for the link 'For more information, see the [developer site]'.",
+      "value": "https://developer.openactive.io/publishing-data/activity-list-references"
+    },
+    "VOCAB_PROPERTY": {
+      "description": "The name of the property in the OpenActive Namespace or Beta Namespace that references this SKOS vocabulary, e.g. `activity` or `beta:placeType`.",
+      "value":  "activity"
+    },
+    "VOCAB_DRAFT": {
+      "description": "Set to `true` if the property is in the Beta Namespace, otherwise `false`.",
+      "value":  "false"
+    },
+    "VOCAB_EXPORT_RELATED_MATCHES": {
+      "description": "A list other OpenActive vocabularies that this vocabulary references, with the name of the JSON-LD property to use when exporting such references. Leave this blank if this vocabulary does not reference other vocabularies.",
+      "value":  "facility-types:facilityType;activity-list:activity",
+      "required": false
+    },
+    "VOCAB_SUGGESTIONS_LINK": {
+      "description": "Link to a page where users can suggest new terms to be added to this vocabulary.",
+      "value":  "https://docs.google.com/forms/d/e/1FAIpQLSfaKgMC-dySy8G7Lvv_9Uh-o48Db37B3BwHSHANyPlEpiEmFA/viewform",
+    },
     "VOCAB_WORKFLOW_GH_ACCESS_TOKEN": {
+      "description": "The GitHub Access Token that allows an administrator to trigger the SKOS publishing workflow from within iQvoc.",
       "required": true
     },
-    "VOCAB_WORKFLOW_GH_UID": "openactive-bot"
+    "VOCAB_WORKFLOW_GH_UID": {
+      "description": "The GitHub User ID of the user who owns the GitHub Access Token.",
+      "value": "openactive-bot",
+      "required": true
+    }
   },
   "formation": {
     "web": {
