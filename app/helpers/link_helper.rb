@@ -11,4 +11,23 @@ module LinkHelper
 
     link_to name, path, html_options, &block
   end
+
+  def render_skos_id(url)
+    if url =~ %r{^https://([^.]+)\.openactive\.io/_([0-9a-f-]+)$}
+      vocab_identifier = $1
+      id = $2
+      "https://openactive.io/#{vocab_identifier}##{id}"
+    else
+      url
+    end
+  end
+
+  def render_property_url(property_name)
+    if property_name =~ %r{^beta:(.+)$}
+      property = $1
+      "https://openactive.io/ns-beta/#" + property
+    else
+      property_name
+    end
+  end
 end

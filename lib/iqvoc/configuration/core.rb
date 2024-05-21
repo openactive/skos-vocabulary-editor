@@ -75,8 +75,7 @@ module Iqvoc
         },
           {
           text: proc { t('txt.views.navigation.changelog') },
-          href: proc { changelog_path },
-          controller: 'pages'
+          href: "https://github.com/openactive/#{ENV['VOCAB_IDENTIFIER']}/releases"
           }
      #      ,
      #   {
@@ -147,7 +146,7 @@ module Iqvoc
 
         # initialize
         self.config.register_settings({
-          'title' => 'OpenActive Activity List',
+          'title' => "OpenActive #{ENV['VOCAB_NAME']}",
           'languages.pref_labeling' => ['en', 'de'],
           'languages.further_labelings.Labeling::SKOS::AltLabel' => ['en', 'de'],
           'languages.notes' => ['en', 'de'],

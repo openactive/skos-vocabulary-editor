@@ -1,0 +1,24 @@
+<div style="display: flex; justify-content: center;">
+  <div style="max-width: 600px; width: 100%; border: 1px solid #ccc; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-top: 50px;">
+    <h1>Publish <%= ENV['VOCAB_NAME'] %></h1>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <%= form_tag(trigger_export_path, method: :post, style: "display: flex; flex-direction: column; flex: 1;") do %>
+        <%= hidden_field_tag :confirm, 'yes' %>
+        <div style="flex: 1;">
+          <label for="release_author">Release Author:</label>
+          <%= text_field_tag :release_author, current_user.name, readonly: true, style: "width: 100%;" %>
+        </div>
+        <div style="flex: 1; margin-top: 10px;">
+          <label for="release_timestamp">Release Timestamp:</label>
+          <%= datetime_local_field_tag :release_timestamp, Time.now.strftime("%Y-%m-%dT%H:%M"), style: "width: 100%;" %>
+          <small>If this date is set to a day that is not today, this overrides the release timestamp.</small>
+        </div>
+        <p>Do you want to publish a new version of the OpenActive <%= ENV['VOCAB_NAME'] %>?</p>
+        <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+          <%= submit_tag 'Confirm', style: "margin-right: 10px;" %>
+          <%= link_to 'Cancel', dashboard_path, style: "flex-shrink: 0;" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
