@@ -38,20 +38,20 @@
     },
     "VOCAB_PROPERTY": {
       "description": "The name of the property in the OpenActive Namespace or Beta Namespace that references this SKOS vocabulary, e.g. `activity` or `beta:placeType`.",
-      "value":  "activity"
+      "value": "activity"
     },
     "VOCAB_DRAFT": {
       "description": "Set to `true` if the property is in the Beta Namespace, otherwise `false`.",
-      "value":  "false"
+      "value": "false"
     },
     "VOCAB_EXPORT_RELATED_MATCHES": {
       "description": "A list other OpenActive vocabularies that this vocabulary references, with the name of the JSON-LD property to use when exporting such references. Leave this blank if this vocabulary does not reference other vocabularies.",
-      "value":  "facility-types:facilityType;activity-list:activity",
+      "value": "facility-types:facilityType;activity-list:activity",
       "required": false
     },
     "VOCAB_SUGGESTIONS_LINK": {
       "description": "Link to a page where users can suggest new terms to be added to this vocabulary.",
-      "value":  "https://docs.google.com/forms/d/e/1FAIpQLSfaKgMC-dySy8G7Lvv_9Uh-o48Db37B3BwHSHANyPlEpiEmFA/viewform",
+      "value": "https://docs.google.com/forms/d/e/1FAIpQLSfaKgMC-dySy8G7Lvv_9Uh-o48Db37B3BwHSHANyPlEpiEmFA/viewform"
     },
     "VOCAB_WORKFLOW_GH_ACCESS_TOKEN": {
       "description": "The GitHub Access Token that allows an administrator to trigger the SKOS publishing workflow from within iQvoc.",
