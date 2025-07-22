@@ -16,7 +16,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.4.4' # 2025-07-22: This is the latest Ruby version currently supported by Heroku
+ruby '3.2.8' # 2025-07-22: This is the lowest Ruby version currently supported by Heroku
 
 # TODO: The following dependencies could be included by the "gemspec" command.
 # There is only one problem: gemspec puts the dependencies automatically to a
