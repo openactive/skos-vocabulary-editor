@@ -16,12 +16,12 @@
 
 source 'https://rubygems.org'
 
-ruby '3.2.8' # 2025-07-22: This is the lowest Ruby version currently supported by Heroku
+ruby '3.4.4'
 
 # TODO: The following dependencies could be included by the "gemspec" command.
 # There is only one problem: gemspec puts the dependencies automatically to a
 # group (:development by default). This is not what we need.
-gem 'rails', '~> 4.2.11'
+gem 'rails'#, '~> 4.2.11'
 gem 'kaminari', '~> 1.2.1'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'authlogic', '~> 3.8.0'
@@ -33,7 +33,7 @@ gem 'rails_autolink'
 gem 'faraday', '0.9.0'
 gem 'faraday_middleware'
 gem 'nokogiri'
-gem 'linkeddata'
+gem 'linkeddata', '~> 3.1.0' # With no specified version this resolves to 3.0.3, which requires nokogumbo-2.0.5, which Ruby-3 has an issue with installing. linkeddata-3.1 is the next highest version and works fine with Ruby-3 (Ruby-3.2.8, Ruby-3.3.8, Ruby-3.4.4 tested), so does linkeddata-3.2, but linkeddata-3.3 causes a lot of dependency clashes (linkeddata-3.3.3 is the very latest version as of 2025-08-01). Sticking with the lowest version which works, while restricting minor version, hence linkeddata ~> 3.1.0.
 gem "rdf-vocab"
 gem 'uglifier'
 gem 'sass-rails', '~> 5.0.0'
@@ -48,11 +48,12 @@ gem 'autoprefixer-rails', '~> 6.5.1.1'
 gem 'daemons'
 gem "octokit", "~> 4.0"
 gem 'rubyzip', '~> 2.0'
+gem 'activerecord', '>= 3.2.15' # If activerecord is not specified at all then activerecord-3.2.14 is pulled in by linkeddata, but this has issues with unspecified dependencies which is not so with activerecord-3.2.13 and activerecord-3.2.15 (see rubygems.org for all these versions), so looks like maybe an oversight with activerecord-3.2.14. Explicitly specifying activerecord-3.2.15 as a minimum avoids this. Note that '~> 3.2.15' limits us to '>= 3.2.15' and '< 3.3', but the latter constraint leads to other dependency issues, hence we use '>= 3.2.15' here.
 
 # database adapters
 # comment out those you do don't need or use a different Gemfile
 # gem  'mysql2', '~> 0.4.0'
-gem 'pg', '~> 0.15'
+gem 'pg'#, '~> 0.15' # Ruby-3 has an issue with this version
 gem 'figaro'
 gem 'git'
 
@@ -83,7 +84,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'sqlite3', '~> 1.3.0'
+  gem 'sqlite3'#, '~> 1.3.0' # Ruby-3 has an issue with this version
   gem 'capybara', '~> 2.14.2'
   gem 'poltergeist', '~> 1.6.0'
   gem 'webmock', '~> 3.0.1'
