@@ -1,0 +1,32 @@
+{
+  "name": "skos-vocabulary-editor",
+  "version": "1.0.0",
+  "description": "OpenActive SKOS Vocabulary Editor, a fork of iQvoc",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "jquery": "^3.6.0",
+    "jqtree": "^1.4.0",
+    "typeahead.js": "^0.11.1",
+    "urijs": "^1.19.0",
+    "pickadate": "^3.6.0"
+  },
+  "devDependencies": {
+    "@rails/webpacker": "^5.8.0",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.0",
+    "terser-webpack-plugin": "^4.2.0",
+    "css-loader": "^5.2.0",
+    "sass-loader": "^10.1.0",
+    "node-sass": "^6.0.0"
+  },
+  "engines": {
+    "node": "18.17.0",
+    "npm": ">= 8.0.0"
+  }
+}

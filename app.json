@@ -9,6 +9,9 @@
   "buildpacks": [
     {
       "url": "heroku/ruby"
+    },
+    {
+      "url": "heroku/nodejs"
     }
   ],
   "env": {
@@ -44,5 +47,5 @@
   "scripts": {
     "postdeploy": "rake db:migrate; rake db:seed"
   },
-  "stack": "heroku-20"
+  "stack": "heroku-24"
 }
