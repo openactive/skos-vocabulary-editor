@@ -21,7 +21,14 @@ ruby '3.4.4'
 # TODO: The following dependencies could be included by the "gemspec" command.
 # There is only one problem: gemspec puts the dependencies automatically to a
 # group (:development by default). This is not what we need.
-gem 'rails'#, '~> 4.2.11'
+
+# Core Rails Framework
+gem 'rails', '~> 6.1.0'
+gem 'bootsnap', '>= 1.1.0', require: false
+gem 'webpacker', '~> 5.0'
+gem 'sprockets-rails', require: 'sprockets/railtie'
+
+# Application Gems
 gem 'kaminari', '~> 1.2.1'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'authlogic', '~> 3.8.0'
@@ -29,37 +36,37 @@ gem 'cancancan', '~> 1.10.0'
 gem 'iq_rdf', '>= 0.1.16'
 gem 'iq_triplestorage'
 gem 'json'
-gem 'rails_autolink'
-gem 'faraday', '0.9.0'
+gem 'faraday', '~> 2.0'
 gem 'faraday_middleware'
-gem 'nokogiri'
-gem 'linkeddata', '~> 3.1.0' # With no specified version this resolves to 3.0.3, which requires nokogumbo-2.0.5, which Ruby-3 has an issue with installing. linkeddata-3.1 is the next highest version and works fine with Ruby-3 (Ruby-3.2.8, Ruby-3.3.8, Ruby-3.4.4 tested), so does linkeddata-3.2, but linkeddata-3.3 causes a lot of dependency clashes (linkeddata-3.3.3 is the very latest version as of 2025-08-01). Sticking with the lowest version which works, while restricting minor version, hence linkeddata ~> 3.1.0.
+gem 'nokogiri', '~> 1.15.0'
+gem 'linkeddata', '~> 3.2'
 gem "rdf-vocab"
-gem 'uglifier'
-gem 'sass-rails', '~> 5.0.0'
+gem 'terser'
+gem 'sassc-rails', '~> 2.1'
 gem 'bootstrap_form', '~> 2.2.0'
 gem 'font-awesome-rails', '~> 4.3.0'
 gem 'apipie-rails', '~> 0.3.5'
 gem 'maruku', require: false
 gem 'database_cleaner'
-gem 'delayed_job_active_record', '~> 4.1.1'
-gem 'carrierwave'
-gem 'autoprefixer-rails', '~> 6.5.1.1'
+gem 'delayed_job_active_record', '~> 4.1.4'
+gem 'carrierwave', '~> 2.2'
+gem 'autoprefixer-rails', '~> 10.0'
 gem 'daemons'
 gem "octokit", "~> 4.0"
 gem 'rubyzip', '~> 2.0'
-gem 'activerecord', '>= 3.2.15' # If activerecord is not specified at all then activerecord-3.2.14 is pulled in by linkeddata, but this has issues with unspecified dependencies which is not so with activerecord-3.2.13 and activerecord-3.2.15 (see rubygems.org for all these versions), so looks like maybe an oversight with activerecord-3.2.14. Explicitly specifying activerecord-3.2.15 as a minimum avoids this. Note that '~> 3.2.15' limits us to '>= 3.2.15' and '< 3.3', but the latter constraint leads to other dependency issues, hence we use '>= 3.2.15' here.
+gem 'activerecord', '>= 6.1.0'
 
-# database adapters
-# comment out those you do don't need or use a different Gemfile
+# Database Adapters
+# Comment out those you do don't need or use a different Gemfile
 # gem  'mysql2', '~> 0.4.0'
-gem 'pg'#, '~> 0.15' # Ruby-3 has an issue with this version
+gem 'pg', '~> 1.4'
 gem 'figaro'
 gem 'git'
 
+# Development Gems
 group :development do
   gem 'view_marker'
-  gem 'better_errors'
+  gem 'better_errors', '~> 2.10'
   gem 'web-console'
   gem 'binding_of_caller', '0.7.3.pre1'
 end
@@ -68,7 +75,7 @@ group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails', require: 'pry'
   gem 'pry-remote'
-  gem 'pry-byebug', '~> 1.1.2', platforms: :ruby_20
+  gem 'pry-byebug', '~> 3.10'
   gem 'quiet_assets'
 
   platforms :ruby do
@@ -84,24 +91,14 @@ group :development, :test do
 end
 
 group :test do
-  gem 'sqlite3'#, '~> 1.3.0' # Ruby-3 has an issue with this version
-  gem 'capybara', '~> 2.14.2'
-  gem 'poltergeist', '~> 1.6.0'
-  gem 'webmock', '~> 3.0.1'
-  gem 'simplecov'
+  gem 'sqlite3', '~> 1.5'
+  gem 'capybara', '~> 3.35'
+  gem 'selenium-webdriver', '~> 4.0'
+  gem 'webmock', '~> 3.14'
+  gem 'simplecov', '~> 0.21'
 end
 
 group :production do
   gem 'activerecord-nulldb-adapter'
-  #version updates must be done in the Dockerfile as well
-  gem 'passenger', '= 5.3.7'
-  gem 'rails_12factor'
-end
-
-platforms :ruby do
-  # gem 'therubyracer' # Not needed for deployment to heroku, not is the newer mini_racer
-end
-
-group :heroku do
-  gem 'rails_12factor'
+  gem 'passenger', '~> 6.0'
 end
