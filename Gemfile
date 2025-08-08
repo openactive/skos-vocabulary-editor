@@ -53,6 +53,7 @@ gem 'rubyzip', '~> 2.3'
 gem 'mutex_m'
 gem 'csv'
 gem 'benchmark'
+gem 'drb'
 gem 'irb'
 
 # Database Adapters
@@ -73,7 +74,6 @@ group :development, :test do
   gem 'pry-rails', require: 'pry'
   gem 'pry-remote'
   gem 'pry-byebug', '~> 3.10'
-  gem 'drb'
 
   platforms :ruby do
     gem 'hirb-unicode'
