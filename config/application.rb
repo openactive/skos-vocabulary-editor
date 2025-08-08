@@ -16,6 +16,7 @@
 
 require File.expand_path('../boot', __FILE__)
 
+require 'logger'
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -36,7 +37,7 @@ module Iqvoc
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    # Load Rails 6.1 defaults
+    config.load_defaults 6.1
   end
 end
