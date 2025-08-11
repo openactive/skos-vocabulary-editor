@@ -22,7 +22,9 @@ module DeepCloning
   extend ActiveRecord::ModelSchema
 
   included do #:nodoc:
-    alias_method_chain :dup, :deep_cloning
+    # Manually replicate alias_method_chain
+    alias_method :dup_without_deep_cloning, :dup
+    alias_method :dup, :dup_with_deep_cloning
   end
 
   # clones an ActiveRecord model.
