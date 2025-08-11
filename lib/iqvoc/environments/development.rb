@@ -2,6 +2,7 @@ require 'iqvoc'
 
 # inject template name
 class ActionView::TemplateRenderer
+  alias_method :render_without_source_comment, :render
   def render_with_source_comment(context, options)
     res = render_without_source_comment(context, options)
     template = determine_template(options)
@@ -12,11 +13,11 @@ class ActionView::TemplateRenderer
       res
     end
   end
-  alias_method_chain :render, :source_comment
 end
 
 # inject partial name
 class ActionView::PartialRenderer
+  alias_method :render_without_source_comment, :render
   def render_with_source_comment(context, options, block)
     res = render_without_source_comment(context, options, block)
     template = @template
@@ -27,7 +28,6 @@ class ActionView::PartialRenderer
       res
     end
   end
-  alias_method_chain :render, :source_comment
 end
 
 module Iqvoc::Environments
