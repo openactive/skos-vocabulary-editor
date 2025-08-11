@@ -10,7 +10,7 @@ tmp/*
 .DS_Store
 nbproject
 rerun.txt
-config/database.yml
+# config/database.yml
 config/blazing.rb
 .capistrano_history.yml
 *.war
@@ -30,3 +30,9 @@ coverage/*
 /config/application.yml
 
 bash_history.txt
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
