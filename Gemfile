@@ -55,6 +55,7 @@ gem 'csv'
 gem 'benchmark'
 gem 'drb'
 gem 'irb'
+gem 'concurrent-ruby', '1.3.4'
 
 # Database Adapters
 gem 'pg', '~> 1.4'
@@ -63,7 +64,6 @@ gem 'git'
 
 # Development Gems
 group :development do
-  gem 'view_marker'
   gem 'better_errors', '~> 2.10'
   gem 'web-console', '~> 4.2'
   gem 'binding_of_caller', '~> 1.0'
