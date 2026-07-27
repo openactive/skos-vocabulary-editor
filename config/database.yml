@@ -14,3 +14,13 @@ test:
 production:
   url: <%= ENV["DATABASE_URL"] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+# The Heroku apps run with RAILS_ENV=heroku (see app.json), so they need their
+# own entry here. Without it there is no database configuration for the running
+# environment, no connection pool is established, and every request that touches
+# the database fails with "No connection pool for 'ActiveRecord::Base' found".
+heroku:
+  adapter: postgresql
+  encoding: unicode
+  url: <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
