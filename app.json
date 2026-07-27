@@ -20,6 +20,7 @@
     "RACK_ENV": "heroku",
     "RAILS_ENV": "heroku",
     "RAILS_SERVE_STATIC_FILES": "enabled",
+    "WEBPACKER_PRECOMPILE": "false",
     "SECRET_KEY_BASE": {
       "generator": "secret"
     },
