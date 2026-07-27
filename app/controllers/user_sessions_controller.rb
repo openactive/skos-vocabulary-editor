@@ -15,7 +15,11 @@
 # limitations under the License.
 
 class UserSessionsController < ApplicationController
-  skip_before_action :require_user, only: [:new, :create]
+  # `require_user` is not defined as a before_action in this codebase (auth is
+  # handled by CanCanCan `authorize!`); this skip is a leftover from the old
+  # authlogic setup. Rails 4 ignored skipping an undefined callback, Rails 5+
+  # raises ArgumentError - so pass raise: false to keep the old behaviour.
+  skip_before_action :require_user, only: [:new, :create], raise: false
 
   def new
     authorize! :create, UserSession
