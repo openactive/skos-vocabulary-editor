@@ -26,6 +26,20 @@ class AbstractUser < ActiveRecord::Base
   acts_as_authentic do |config|
     # Authlogic 4+ removed its built-in field validations, so `validate_email_field`
     # no longer exists. Email is validated explicitly above (presence/uniqueness).
+    #
+    # Name the credential columns explicitly. Authlogic otherwise infers them by
+    # inspecting the table (`first_column_to_exist`), which silently returns nil
+    # when no database connection is available - and the result is memoised for
+    # the life of the process. Under Passenger the app is preloaded before a
+    # connection exists ("Failed to define attribute methods because of
+    # ActiveRecord::ConnectionNotEstablished"), so login_field/email_field became
+    # nil, which made the session's password_field nil and raised
+    # `'@' is not allowed as an instance variable name` on every request that
+    # touched current_user. These values match what Authlogic detects anyway.
+    config.login_field           = :email
+    config.crypted_password_field = :crypted_password
+    config.password_salt_field   = :password_salt
+
     config.crypto_provider = Authlogic::CryptoProviders::Sha512 # keep legacy Sha512 hashes valid
     # Authlogic 6 replaced `maintain_sessions = false` with these flags: do not
     # automatically create/maintain a session when a user record is saved.
