@@ -39,5 +39,14 @@ module Iqvoc
 
     # Load Rails 6.1 defaults
     config.load_defaults 6.1
+
+    # Use the classic autoloader. This codebase predates Zeitwerk and relies on
+    # acronym constants (Concept::SKOS::Base, RDFAPI, etc.) whose directories
+    # (concept/skos, aides/rdfapi.rb) Zeitwerk maps to Skos / Rdfapi, causing
+    # "uninitialized constant" errors during eager load. Classic underscores the
+    # constant to find the file and handles these without per-acronym inflection
+    # config. NOTE: the classic autoloader is removed in Rails 7 - migrating to
+    # Zeitwerk (adding inflections for SKOS, RDFAPI, ...) will be required then.
+    config.autoloader = :classic
   end
 end
