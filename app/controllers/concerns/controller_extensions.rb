@@ -26,7 +26,11 @@ module ControllerExtensions
   def ensure_extension
     unless params[:format] || !request.get?
       flash.keep
-      redirect_to url_for(params.merge(format: (request.format && request.format.symbol) || :html))
+      # Rails 5+ makes `params` an ActionController::Parameters; passing an
+      # unpermitted instance to url_for raises UnfilteredParameters. Convert to
+      # a plain hash - this only re-uses the request's own params to rebuild the
+      # same URL with a format extension, so to_unsafe_h is appropriate.
+      redirect_to url_for(params.to_unsafe_h.merge(format: (request.format && request.format.symbol) || :html))
     end
   end
 
