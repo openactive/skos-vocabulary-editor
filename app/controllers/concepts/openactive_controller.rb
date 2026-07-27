@@ -129,7 +129,10 @@ class Concepts::OpenactiveController < ConceptsController
           end
         end
 
-        send_data(csv_data, filename: "#{ENV['VOCAB_IDENTIFIER']}-flat.csv", type: 'text/csv')
+        # e.g. "OpenActive_Activity_List_2026-07-27.csv" (name of vocab + date of download)
+        vocab_name = ENV['VOCAB_NAME'].to_s.strip.gsub(/\s+/, '_')
+        filename = "OpenActive_#{vocab_name}_#{Date.today.strftime('%Y-%m-%d')}.csv"
+        send_data(csv_data, filename: filename, type: 'text/csv')
       end
     end
   end
