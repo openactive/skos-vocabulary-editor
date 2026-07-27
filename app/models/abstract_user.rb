@@ -24,9 +24,13 @@ class AbstractUser < ActiveRecord::Base
   # validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
   acts_as_authentic do |config|
-    config.validate_email_field = false
-    config.maintain_sessions = false
-    config.crypto_provider = Authlogic::CryptoProviders::Sha512 # use authlogic's old crypto provider
+    # Authlogic 4+ removed its built-in field validations, so `validate_email_field`
+    # no longer exists. Email is validated explicitly above (presence/uniqueness).
+    config.crypto_provider = Authlogic::CryptoProviders::Sha512 # keep legacy Sha512 hashes valid
+    # Authlogic 6 replaced `maintain_sessions = false` with these flags: do not
+    # automatically create/maintain a session when a user record is saved.
+    config.log_in_after_create = false
+    config.log_in_after_password_change = false
   end
 
   def self.default_role
