@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require 'zip'
+require 'csv'
 
 #Derived from hierarchy_controller.rb
 class Concepts::OpenactiveController < ConceptsController
@@ -62,6 +63,73 @@ class Concepts::OpenactiveController < ConceptsController
 
         # Send the data to the client as a file download
         send_data(buffer.read, filename: "#{ENV['VOCAB_IDENTIFIER']}.zip", type: 'application/zip')
+      end
+
+      format.csv do
+        # Public flat CSV download: exactly one row per concept, for opening in
+        # Excel, Google Sheets, etc.
+        #
+        # Flattening rule (as agreed, matching the Moving Communities sheet):
+        # where a concept has more than one broader parent, choose the parent
+        # whose chain to the top of the tree is longest; break ties alphabetically
+        # by prefLabel. Follow that choice upward, applying the same rule at each
+        # level, to build a single root-to-leaf path.
+        concepts = @concepts.select { |c| can? :read, c }.sort_by { |c| c.pref_label.to_s }
+        by_id = concepts.index_by(&:id)
+
+        label = ->(c) { c.pref_label.to_s }
+
+        # Parents restricted to the published set, so the CSV matches the JSON-LD.
+        parents = lambda do |c|
+          c.broader_relations.map { |rel| by_id[rel.target_id] }.compact
+        end
+
+        # Longest chain length up to a top concept (memoised), used to rank parents.
+        depth_cache = {}
+        depth = lambda do |c, stack = []|
+          return depth_cache[c.id] if depth_cache.key?(c.id)
+          return 0 if stack.include?(c.id) # cycle guard
+          ps = parents.call(c)
+          depth_cache[c.id] =
+            ps.empty? ? 0 : 1 + ps.map { |p| depth.call(p, stack + [c.id]) }.max
+        end
+
+        chosen_parent = lambda do |c|
+          parents.call(c).min_by { |p| [-depth.call(p), label.call(p).downcase] }
+        end
+
+        chain = lambda do |c|
+          path, seen, cur = [c], [c.id], c
+          while (p = chosen_parent.call(cur)) && !seen.include?(p.id)
+            path.unshift(p)
+            seen << p.id
+            cur = p
+          end
+          path
+        end
+
+        rows = concepts.map { |c| [c, chain.call(c)] }
+        maxlen = rows.map { |(_, ch)| ch.size }.max || 1
+
+        csv_data = CSV.generate do |csv|
+          csv << %w[prefLabel identifier notation definition altLabels related topConcept parent fullPath] +
+                 (1..maxlen).map { |i| "level#{i}" }
+          rows.each do |c, ch|
+            names = ch.map { |x| label.call(x) }
+            definition = c.notes_for_class(Note::SKOS::Definition).first&.value.to_s.tr("\n", ' ')
+            alt_labels = c.alt_labels.map(&:value).sort.join(':')
+            related = c.related_concepts_for_relation_class(Concept::Relation::SKOS::Related).
+                        map { |r| r.pref_label.to_s }.join(':')
+            parent = names.size > 1 ? names[-2] : ''
+            levels = names + [''] * (maxlen - names.size)
+            row = [names.last, c.origin[1..-1], c.notations.first&.value, definition,
+                   alt_labels, related, names.first, parent, names.join(' | ')] + levels
+            # Write empty cells bare (not as "") for clean output.
+            csv << row.map { |v| v.to_s.empty? ? nil : v }
+          end
+        end
+
+        send_data(csv_data, filename: "#{ENV['VOCAB_IDENTIFIER']}-flat.csv", type: 'text/csv')
       end
     end
   end
