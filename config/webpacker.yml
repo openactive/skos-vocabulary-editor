@@ -85,6 +85,12 @@ production:
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
 
+  # The app serves all JS/CSS via Sprockets (manifest.js) and does not use any
+  # webpack packs (no pack_tag anywhere), so skip the webpack build during
+  # `rake assets:precompile`. This avoids the Heroku build failing at the
+  # webpack step ("Command webpack not found") for output nothing references.
+  webpacker_precompile: false
+
   # Extract and emit a css file
   extract_css: true
 
